@@ -15,10 +15,17 @@ interface Project {
     val author: String
         get() = "sya_ri"
     val dependProject: List<Project>
-    val dependProjectName: List<String>
-        get() = dependProject.map { it.name }
-    val dependPlugin: List<String>
+    val dependProjectName: Set<String>
+        get() = dependProject.map { it.name }.toSet()
+    val dependPlugin: Set<String>
         get() = dependProjectName + extraDependPlugin
-    val extraDependPlugin: List<String>
-        get() = listOf()
+    val extraDependPlugin: Set<String>
+        get() = setOf()
+
+    object Kotlin: Project {
+        override val name = "SS-Kotlin"
+        override val version = "1.4.21"
+        override val group = subgroup("kotlin")
+        override val dependProject = listOf<Project>()
+    }
 }
