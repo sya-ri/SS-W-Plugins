@@ -90,7 +90,7 @@ object BootstrapBuilder: OnEnable, OnDisable {
     private fun CustomFileConfig.getPort(): Pair<Int, Boolean> {
         val port = get(PORT_PATH, ConfigDataType.INT)
         return if (port == null || port < 0) {
-            set(PORT_PATH, DEFAULT_HOST)
+            set(PORT_PATH, DEFAULT_PORT)
             DEFAULT_PORT to true
         } else {
             port to false
