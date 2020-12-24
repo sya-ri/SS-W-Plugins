@@ -1,0 +1,10 @@
+# Project exclude paths
+.gradle
+!.idea/codeStyles/codeStyleConfig.xml
+!.idea/codeStyles/Project.xml
+.idea
+build
+gradle
+gradle.properties
+gradlew
+gradlew.bat
