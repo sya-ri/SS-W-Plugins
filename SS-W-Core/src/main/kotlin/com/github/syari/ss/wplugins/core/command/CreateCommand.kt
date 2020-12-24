@@ -1,6 +1,6 @@
 package com.github.syari.ss.wplugins.core.command
 
-import com.github.syari.ss.wplugins.core.permission.Permission.isOp
+import com.github.syari.ss.wplugins.core.permission.Permission
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.plugin.Command
 import net.md_5.bungee.api.plugin.Plugin
@@ -50,58 +50,6 @@ object CreateCommand {
     }
 
     /**
-     * タブ補完の要素
-     * @param condition 条件
-     * @param element 条件に一致した場合の要素
-     * @param unlessElement 条件に一致しなかった場合の要素
-     * @return [CommandTabElement]
-     */
-    fun elementIf(
-        condition: Boolean, element: Iterable<String>?, unlessElement: Iterable<String>? = listOf()
-    ): CommandTabElement {
-        return element(if (condition) element else unlessElement)
-    }
-
-    /**
-     * タブ補完の要素
-     * @param condition 条件
-     * @param element 条件に一致した場合の要素
-     * @param unlessElement 条件に一致しなかった場合の要素
-     * @return [CommandTabElement]
-     */
-    fun elementIf(
-        condition: Boolean, vararg element: String, unlessElement: Iterable<String>? = listOf()
-    ): CommandTabElement {
-        return elementIf(condition, element.toList(), unlessElement)
-    }
-
-    /**
-     * タブ補完の要素
-     * @param sender CommandSender
-     * @param element sender.isOpが真であった場合の要素
-     * @param unlessElement sender.isOpが偽であった場合の要素
-     * @return [CommandTabElement]
-     */
-    fun elementIfOp(
-        sender: CommandSender, element: Iterable<String>?, unlessElement: Iterable<String>? = listOf()
-    ): CommandTabElement {
-        return elementIf(sender.isOp, element, unlessElement)
-    }
-
-    /**
-     * タブ補完の要素
-     * @param sender CommandSender
-     * @param element sender.isOpが真であった場合の要素
-     * @param unlessElement sender.isOpが偽であった場合の要素
-     * @return [CommandTabElement]
-     */
-    fun elementIfOp(
-        sender: CommandSender, vararg element: String, unlessElement: Iterable<String>? = listOf()
-    ): CommandTabElement {
-        return elementIfOp(sender, element.toList(), unlessElement)
-    }
-
-    /**
      * コマンドを作成し、登録します
      * @param plugin 登録するプラグイン
      * @param label コマンド名 /label
@@ -114,7 +62,7 @@ object CreateCommand {
     fun command(
         plugin: Plugin, label: String, messagePrefix: String, vararg tabs: CommandTab, execute: CommandMessage.(CommandSender, CommandArgument) -> Unit
     ) {
-        plugin.proxy.pluginManager.registerCommand(plugin, object: Command(label), TabExecutor {
+        plugin.proxy.pluginManager.registerCommand(plugin, object: Command(label, Permission.admin), TabExecutor {
             override fun execute(
                 sender: CommandSender, args: Array<out String>
             ) {
