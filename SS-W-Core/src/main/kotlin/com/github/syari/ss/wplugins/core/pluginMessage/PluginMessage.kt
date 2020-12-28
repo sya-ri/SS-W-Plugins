@@ -27,6 +27,6 @@ object PluginMessage: OnEnable, Listener {
         val dataOutput = ByteStreams.newDataOutput()
         dataOutput.writeUTF(template.subChannel)
         template.writeTo(dataOutput)
-        server.sendData(PluginMessageTemplate.ChannelName, dataOutput.toByteArray())
+        server.sendData(PluginMessageTemplate.ChannelName, dataOutput.toByteArray(), template.queue)
     }
 }
