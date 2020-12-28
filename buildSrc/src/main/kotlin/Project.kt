@@ -31,9 +31,16 @@ interface Project {
 
     object Core: Project {
         override val name = "SS-W-Core"
-        override val version = build(1)
+        override val version = build(2)
         override val group = subgroup("core")
         override val dependProject = listOf(Kotlin)
+    }
+
+    object Discord: Project {
+        override val name = "SS-W-Discord"
+        override val version = build(1)
+        override val group = subgroup("discord")
+        override val dependProject = listOf(Core)
     }
 
     object Kotlin: Project {
