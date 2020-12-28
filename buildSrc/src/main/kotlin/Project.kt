@@ -22,6 +22,13 @@ interface Project {
     val extraDependPlugin: Set<String>
         get() = setOf()
 
+    object Chat: Project {
+        override val name = "SS-W-Chat"
+        override val version = build(1)
+        override val group = subgroup("chat")
+        override val dependProject = listOf(Core)
+    }
+
     object Core: Project {
         override val name = "SS-W-Core"
         override val version = build(1)
@@ -30,7 +37,7 @@ interface Project {
     }
 
     object Kotlin: Project {
-        override val name = "SS-Kotlin"
+        override val name = "SS-W-Kotlin"
         override val version = "1.4.21"
         override val group = subgroup("kotlin")
         override val dependProject = listOf<Project>()
