@@ -50,6 +50,13 @@ interface Project {
         override val dependProject = listOf<Project>()
     }
 
+    object TabList: Project {
+        override val name = "SS-W-TabList"
+        override val version = build(1)
+        override val group = subgroup("tablist")
+        override val dependProject = listOf(Core)
+    }
+
     object Votifier: Project {
         override val name = "SS-W-Votifier"
         override val version = build(1)
