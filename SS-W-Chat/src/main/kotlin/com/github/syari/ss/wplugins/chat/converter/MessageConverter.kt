@@ -19,7 +19,7 @@ object MessageConverter {
     fun convert(message: String): ConvertResult {
         return if (matchesHalfWidthChar(message)) {
             if (message.firstOrNull() == '.') {
-                ConvertResult.OnlyMessage(message.substring(2))
+                ConvertResult.OnlyMessage(message.substring(1))
             } else {
                 val converted = message.toKana().toIME()
                 if (message == converted) {
