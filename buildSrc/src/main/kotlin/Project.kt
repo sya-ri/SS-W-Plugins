@@ -24,7 +24,7 @@ interface Project {
 
     object Chat: Project {
         override val name = "SS-W-Chat"
-        override val version = build(1)
+        override val version = build(2)
         override val group = subgroup("chat")
         override val dependProject = listOf(Core)
     }
