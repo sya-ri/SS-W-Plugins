@@ -52,7 +52,7 @@ interface Project {
 
     object TabList: Project {
         override val name = "SS-W-TabList"
-        override val version = build(3)
+        override val version = build(4)
         override val group = subgroup("tablist")
         override val dependProject = listOf(Core)
     }

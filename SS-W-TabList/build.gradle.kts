@@ -1,4 +1,4 @@
-val project = Project.Votifier
+val project = Project.TabList
 group = project.group
 
 dependencies {
