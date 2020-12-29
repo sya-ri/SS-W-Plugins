@@ -1,8 +1,8 @@
 package com.github.syari.ss.wplugins.core.pluginMessage
 
+import com.github.syari.ss.template.message.PluginMessageTemplate
 import com.github.syari.ss.wplugins.core.Main.Companion.plugin
 import com.github.syari.ss.wplugins.core.code.OnEnable
-import com.github.syari.ss.wplugins.core.pluginMessage.template.PluginMessageTemplate
 import com.google.common.io.ByteStreams
 import net.md_5.bungee.api.config.ServerInfo
 import net.md_5.bungee.api.event.PluginMessageEvent

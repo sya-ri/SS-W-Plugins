@@ -31,7 +31,7 @@ interface Project {
 
     object Core: Project {
         override val name = "SS-W-Core"
-        override val version = build(4)
+        override val version = build(5)
         override val group = subgroup("core")
         override val dependProject = listOf(Kotlin)
     }
@@ -52,7 +52,7 @@ interface Project {
 
     object TabList: Project {
         override val name = "SS-W-TabList"
-        override val version = build(1)
+        override val version = build(2)
         override val group = subgroup("tablist")
         override val dependProject = listOf(Core)
     }

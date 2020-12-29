@@ -1,7 +1,7 @@
 package com.github.syari.ss.wplugins.tablist
 
+import com.github.syari.ss.template.message.PluginMessageTemplateTabList
 import com.github.syari.ss.wplugins.core.pluginMessage.PluginMessage
-import com.github.syari.ss.wplugins.core.pluginMessage.template.PluginMessageTemplateTabList
 import com.github.syari.ss.wplugins.tablist.Main.Companion.plugin
 import net.md_5.bungee.api.connection.ProxiedPlayer
 import net.md_5.bungee.api.event.LoginEvent
