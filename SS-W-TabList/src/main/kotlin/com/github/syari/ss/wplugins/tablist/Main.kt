@@ -8,7 +8,10 @@ class Main: SSPlugin() {
         internal lateinit var plugin: Plugin
     }
 
+    override val listeners = listOf(EventListener)
+
     override fun onEnable() {
         plugin = this
+        registerListeners()
     }
 }

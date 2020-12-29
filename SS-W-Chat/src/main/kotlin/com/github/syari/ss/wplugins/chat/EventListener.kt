@@ -9,12 +9,14 @@ import net.md_5.bungee.event.EventHandler
 object EventListener: Listener {
     @EventHandler
     fun on(e: ChatEvent) {
+        if (e.message.firstOrNull() == '/') return
         val sender = e.sender
         if (sender !is ProxiedPlayer) return
         val chatSender = ChatSender.get(sender)
         if (chatSender.isGlobalChannel) {
             val message = chatSender.getGlobalTemplateMessage(sender, e.message)
             plugin.proxy.broadcast(message)
+            e.isCancelled = true
         }
     }
 }

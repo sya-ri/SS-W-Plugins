@@ -10,7 +10,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer
 import java.util.UUID
 
 class ChatSender {
-    var isGlobalChannel = false
+    var isGlobalChannel = true
 
     fun getGlobalTemplateMessage(player: ProxiedPlayer, message: String): TextComponent {
         val name = player.displayName
