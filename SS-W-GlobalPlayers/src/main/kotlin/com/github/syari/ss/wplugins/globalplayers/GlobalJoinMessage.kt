@@ -1,7 +1,7 @@
-package com.github.syari.ss.wplugins.tablist
+package com.github.syari.ss.wplugins.globalplayers
 
 import com.github.syari.ss.wplugins.core.message.JsonBuilder.Companion.buildJson
-import com.github.syari.ss.wplugins.tablist.Main.Companion.plugin
+import com.github.syari.ss.wplugins.globalplayers.Main.Companion.plugin
 import net.md_5.bungee.api.event.PlayerDisconnectEvent
 import net.md_5.bungee.api.event.PostLoginEvent
 import net.md_5.bungee.api.plugin.Listener

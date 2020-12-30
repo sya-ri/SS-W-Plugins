@@ -1,4 +1,4 @@
-package com.github.syari.ss.wplugins.tablist
+package com.github.syari.ss.wplugins.globalplayers
 
 import com.github.syari.ss.wplugins.core.code.SSPlugin
 import net.md_5.bungee.api.plugin.Plugin
