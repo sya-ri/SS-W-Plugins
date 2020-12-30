@@ -8,7 +8,7 @@ class Main: SSPlugin() {
         internal lateinit var plugin: Plugin
     }
 
-    override val listeners = listOf(TabUpdater)
+    override val listeners = listOf(TabUpdater, GlobalJoinMessage)
 
     override fun onEnable() {
         plugin = this
