@@ -10,7 +10,7 @@ import net.md_5.bungee.api.event.ServerDisconnectEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 
-object EventListener: Listener {
+object TabUpdater: Listener {
     private fun updateTabList() {
         runLater(plugin, 5) {
             val playerList = plugin.proxy.players.map(ProxiedPlayer::getDisplayName)
