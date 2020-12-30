@@ -43,18 +43,18 @@ interface Project {
         override val dependProject = listOf(Core)
     }
 
+    object GlobalPlayers: Project {
+        override val name = "SS-W-GlobalPlayers"
+        override val version = build(1)
+        override val group = subgroup("globalplayers")
+        override val dependProject = listOf(Core)
+    }
+
     object Kotlin: Project {
         override val name = "SS-W-Kotlin"
         override val version = "1.4.21"
         override val group = subgroup("kotlin")
         override val dependProject = listOf<Project>()
-    }
-
-    object TabList: Project {
-        override val name = "SS-W-TabList"
-        override val version = build(5)
-        override val group = subgroup("tablist")
-        override val dependProject = listOf(Core)
     }
 
     object Votifier: Project {
