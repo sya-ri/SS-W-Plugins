@@ -8,7 +8,7 @@ class Main: SSPlugin() {
         command("gversions", "PluginManager") {
             execute {
                 val plugins = proxy.pluginManager.plugins
-                sendList("&fプラグイン一覧", plugins.map { "${it.description.name} &7${it.description.version}" })
+                sendList("&fプラグイン一覧", plugins.map { "${it.description.name} &7${it.description.version}" }.sorted())
             }
         }
     }
