@@ -3,8 +3,8 @@ package com.github.syari.ss.wplugins.core.command
 import com.github.syari.ss.wplugins.core.Main.Companion.plugin
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
-class CommandArgument internal constructor(
-    private val array: Array<out String>, private val message: CommandMessage
+open class CommandArgument internal constructor(
+    private val array: Array<out String>
 ) {
     /**
      * 指定した要素を取得します
@@ -93,19 +93,16 @@ class CommandArgument internal constructor(
      * @param equalName 名前が完全一致した場合のみ取得する
      * @return [ProxiedPlayer]?
      */
-    fun getPlayer(
+    open fun getPlayer(
         index: Int, equalName: Boolean
     ): ProxiedPlayer? {
-        val rawPlayer = getOrNull(index) ?: return run {
-            message.sendError(ErrorMessage.NotEnterPlayer)
-            null
-        }
-        val player = plugin.proxy.getPlayer(rawPlayer)
-        return if (player != null && (!equalName || player.name.equals(rawPlayer, ignoreCase = true))) {
-            player
-        } else {
-            message.sendError(ErrorMessage.NotFoundPlayer)
-            null
+        return getOrNull(index)?.let { rawPlayer ->
+            val player = plugin.proxy.getPlayer(rawPlayer)
+            return if (player != null && (!equalName || player.name.equals(rawPlayer, ignoreCase = true))) {
+                player
+            } else {
+                null
+            }
         }
     }
 }
