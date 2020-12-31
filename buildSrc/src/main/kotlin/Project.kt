@@ -64,6 +64,13 @@ interface Project {
         override val dependProject = listOf<Project>()
     }
 
+    object PluginManager: Project {
+        override val name = "SS-W-PluginManager"
+        override val version = build(1)
+        override val group = subgroup("pluginmanager")
+        override val dependProject = listOf(Core)
+    }
+
     object Votifier: Project {
         override val name = "SS-W-Votifier"
         override val version = build(2)
