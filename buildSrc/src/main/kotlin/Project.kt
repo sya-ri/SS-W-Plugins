@@ -22,6 +22,13 @@ interface Project {
     val extraDependPlugin: Set<String>
         get() = setOf()
 
+    object AccessBlocker: Project {
+        override val name = "SS-W-AccessBlocker"
+        override val version = build(1)
+        override val group = subgroup("accessblocker")
+        override val dependProject = listOf(Core)
+    }
+
     object Chat: Project {
         override val name = "SS-W-Chat"
         override val version = build(3)
@@ -31,7 +38,7 @@ interface Project {
 
     object Core: Project {
         override val name = "SS-W-Core"
-        override val version = build(6)
+        override val version = build(7)
         override val group = subgroup("core")
         override val dependProject = listOf(Kotlin)
     }
@@ -59,7 +66,7 @@ interface Project {
 
     object Votifier: Project {
         override val name = "SS-W-Votifier"
-        override val version = build(1)
+        override val version = build(2)
         override val group = subgroup("votifier")
         override val dependProject = listOf(Core)
     }

@@ -1,15 +1,17 @@
 package com.github.syari.ss.wplugins.core.command
 
 import com.github.syari.ss.wplugins.core.code.StringEditor.toColor
-import com.github.syari.ss.wplugins.core.code.StringEditor.toComponent
 import com.github.syari.ss.wplugins.core.message.Message.send
-import com.github.syari.ss.wplugins.core.permission.Permission.isOp
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 
-class CommandMessage internal constructor(
-    private val prefix: String, private val sender: CommandSender
+class CommandExecuteAction internal constructor(
+    private val prefix: String, val sender: CommandSender, val args: CommandExecuteArgument
 ) {
+    init {
+        args.executeAction = this
+    }
+
     /**
      * ```
      * sendWithPrefix("&c$message")
@@ -41,7 +43,7 @@ class CommandMessage internal constructor(
      * @param message 本文
      */
     fun sendWithPrefix(message: TextComponent) {
-        sender.sendMessage("&b[$prefix] ".toColor.toComponent.apply { addExtra(message) })
+        sender.send(TextComponent("&b[$prefix] ".toColor).apply { addExtra(message) })
     }
 
     /**
@@ -52,20 +54,8 @@ class CommandMessage internal constructor(
      * @param command コマンド一覧
      * @return [SendHelpIfOp]
      */
-    fun sendHelp(vararg command: Pair<String, String>): SendHelpIfOp {
+    fun sendHelp(vararg command: Pair<String, String>) {
         sendList("コマンド一覧", command.map { "/${it.first} &7${it.second}" })
-        return SendHelpIfOp(this)
-    }
-
-    class SendHelpIfOp(private val message: CommandMessage) {
-        /**
-         * @param command OPに対してのみ表示するコマンド一覧
-         */
-        fun ifOp(vararg command: Pair<String, String>) {
-            if (message.sender.isOp) {
-                message.sendList("", command.map { "/${it.first} &7${it.second}" })
-            }
-        }
     }
 
     /**

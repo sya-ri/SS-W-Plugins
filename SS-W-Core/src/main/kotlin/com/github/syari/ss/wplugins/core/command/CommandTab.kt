@@ -1,17 +1,15 @@
 package com.github.syari.ss.wplugins.core.command
 
-import net.md_5.bungee.api.CommandSender
-
 sealed class CommandTab {
     /**
-     * @see CreateCommand.tab
+     * @see CommandTabContainer.arg
      */
-    class Base internal constructor(
-        val arg: List<String>, val complete: (Pair<CommandSender, CommandArgument>) -> CommandTabElement?
+    class Argument internal constructor(
+        val arg: List<String>, val complete: CommandCompleteElement.() -> CommandTabElement?
     ): CommandTab()
 
     /**
-     * @see CreateCommand.flag
+     * @see CommandTabContainer.flag
      */
     class Flag internal constructor(
         val arg: String, val flag: Map<String, CommandTabElement>
