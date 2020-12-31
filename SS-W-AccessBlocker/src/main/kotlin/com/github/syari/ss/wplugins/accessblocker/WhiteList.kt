@@ -12,7 +12,7 @@ object WhiteList: Listener {
 
     var isEnable = true
 
-    fun canJoin(connection: PendingConnection) = list.contains(connection.uniqueId)
+    private fun canJoin(connection: PendingConnection) = list.contains(connection.uniqueId)
 
     @EventHandler
     fun on(e: LoginEvent) {
