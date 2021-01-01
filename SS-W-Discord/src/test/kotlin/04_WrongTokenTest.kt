@@ -1,4 +1,4 @@
-import com.github.syari.ss.plugins.discord.api.DiscordAPI
+import com.github.syari.ss.wplugins.discord.api.DiscordAPI
 
 fun main() {
     DiscordAPI.login("wrong") {}
