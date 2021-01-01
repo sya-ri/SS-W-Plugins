@@ -17,7 +17,8 @@ object BrandBlocker: Listener {
     fun on(e: PluginMessageEvent) {
         val player = e.sender
         if (player is ProxiedPlayer && e.tag == "minecraft:brand") {
-            val brandName = String(e.data, Charsets.UTF_8)
+            val length = e.data[0]
+            val brandName = e.data.slice(1..length).toByteArray().toString(Charsets.UTF_8)
             if (isAvailable(brandName).not()) {
                 plugin.proxy.console.send("&b[BrandBlock] &a${player.name} &fは &a$brandName &fを使用していた為、ログインが制限されました")
                 player.disconnect(buildJson {
