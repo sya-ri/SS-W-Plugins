@@ -1,5 +1,5 @@
-import com.github.syari.ss.plugins.discord.api.DiscordAPI
-import com.github.syari.ss.plugins.discord.api.DiscordAPI.LOGGER
+import com.github.syari.ss.wplugins.discord.api.DiscordAPI
+import com.github.syari.ss.wplugins.discord.api.DiscordAPI.LOGGER
 
 fun main() {
     DiscordAPI.login(BOT_TOKEN) { message ->
