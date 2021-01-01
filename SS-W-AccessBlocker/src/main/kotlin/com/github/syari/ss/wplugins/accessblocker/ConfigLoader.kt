@@ -16,6 +16,7 @@ object ConfigLoader: OnEnable {
     fun load(sender: CommandSender) {
         config(plugin, sender, "config.yml") {
             ModBlocker.availableList = get("mod", ConfigDataType.STRINGLIST, listOf(), false)
+            BrandBlocker.availableList = get("brand", ConfigDataType.STRINGLIST, listOf(), false)
             WhiteList.isEnable = get("whitelist.enable", ConfigDataType.BOOLEAN, default = true, false)
             val uuidList = get("whitelist.uuid", ConfigDataType.STRINGLIST, listOf(), false)
             WhiteList.list = uuidList.map { UUID.fromString(it) }.toMutableList()
