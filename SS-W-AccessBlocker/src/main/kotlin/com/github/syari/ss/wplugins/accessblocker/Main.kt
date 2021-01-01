@@ -8,7 +8,7 @@ class Main: SSPlugin() {
         internal lateinit var plugin: Plugin
     }
 
-    override val listeners = listOf(ModBlocker, WhiteList)
+    override val listeners = listOf(ModBlocker, WhiteList, BrandBlocker)
     override val onEnables = listOf(CommandCreator, ConfigLoader)
 
     override fun onEnable() {

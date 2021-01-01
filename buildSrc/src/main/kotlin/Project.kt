@@ -24,7 +24,7 @@ interface Project {
 
     object AccessBlocker: Project {
         override val name = "SS-W-AccessBlocker"
-        override val version = build(1)
+        override val version = build(2)
         override val group = subgroup("accessblocker")
         override val dependProject = listOf(Core)
     }
