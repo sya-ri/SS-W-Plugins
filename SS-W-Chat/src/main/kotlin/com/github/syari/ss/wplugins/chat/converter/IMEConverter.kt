@@ -11,7 +11,7 @@ object IMEConverter {
     fun String.toIME(): String {
         val url = GOOGLE_IME_URL + URLEncoder.encode(this, "UTF-8")
         val json = URL(url).readText(Charsets.UTF_8)
-        return parseJson(json)
+        return parseJson(json).ifEmpty { this }
     }
 
     private fun parseJson(json: String): String {
