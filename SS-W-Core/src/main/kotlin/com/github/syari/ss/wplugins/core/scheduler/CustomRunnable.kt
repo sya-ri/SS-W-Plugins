@@ -1,5 +1,9 @@
 package com.github.syari.ss.wplugins.core.scheduler
 
+import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runLater
+import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runRepeatTimes
+import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runSchedule
+import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runTimer
 import net.md_5.bungee.api.plugin.Plugin
 import net.md_5.bungee.api.scheduler.ScheduledTask
 import java.util.concurrent.TimeUnit
@@ -39,10 +43,10 @@ class CustomRunnable internal constructor(
     private var onCancelTask: (() -> Unit)? = null
 
     /**
-     * @see CreateScheduler.run
+     * @see CreateScheduler.runSchedule
      * @return [CustomTask]?
      */
-    fun run(): CustomTask? {
+    fun runSchedule(): CustomTask? {
         return runLater(0)
     }
 

@@ -8,7 +8,7 @@ import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 
 object ConfigLoader: OnEnable {
     override fun onEnable() {
-        config(plugin, console, "config.yml") {
+        plugin.config(console, "config.yml") {
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
             Discord.globalChannelId = get("discord.global", ConfigDataType.LONG, false)
         }

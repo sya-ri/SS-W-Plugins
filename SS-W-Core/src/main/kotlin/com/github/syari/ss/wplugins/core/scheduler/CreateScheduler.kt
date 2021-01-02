@@ -5,80 +5,75 @@ import net.md_5.bungee.api.plugin.Plugin
 
 object CreateScheduler {
     /**
-     * @param plugin 実行するプラグイン
-     * @param run 実行する処理
+     * @param action 実行する処理
      * @return [CustomRunnable]
      */
-    fun schedule(
-        plugin: Plugin, run: CustomTask.() -> Unit
+    fun Plugin.schedule(
+        action: CustomTask.() -> Unit
     ): CustomRunnable {
-        return CustomRunnable(plugin, run)
+        return CustomRunnable(this, action)
     }
 
     /**
-     * @param plugin 実行するプラグイン
-     * @param run 実行する処理
+     * @param action 実行する処理
      * @return [CustomTask]?
      */
-    fun run(
-        plugin: Plugin, run: CustomTask.() -> Unit
+    fun Plugin.runSchedule(
+        action: CustomTask.() -> Unit
     ): CustomTask? {
-        return schedule(plugin, run).run()
+        return schedule(action).runSchedule()
     }
 
     /**
-     * @param plugin 実行するプラグイン
      * @param delay 遅らせる時間 tick
-     * @param run 遅らせて実行する処理
+     * @param action 遅らせて実行する処理
      * @return [CustomTask]?
      */
-    fun runLater(
-        plugin: Plugin, delay: Long, run: CustomTask.() -> Unit
+    fun Plugin.runLater(
+        delay: Long, action: CustomTask.() -> Unit
     ): CustomTask? {
-        return schedule(plugin, run).runLater(delay)
+        return schedule(action).runLater(delay)
     }
 
     /**
-     * @param plugin 実行するプラグイン
      * @param period 繰り返し間隔 tick
      * @param delay 遅らせる時間 tick default: 0
-     * @param run 繰り返し実行する処理
+     * @param action 繰り返し実行する処理
      * @return [CustomTask]?
      */
-    fun runTimer(
-        plugin: Plugin, period: Long, delay: Long = 0, run: CustomTask.() -> Unit
+    fun Plugin.runTimer(
+        period: Long, delay: Long = 0, action: CustomTask.() -> Unit
     ): CustomTask? {
-        return schedule(plugin, run).runTimer(period, delay)
+        return schedule(action).runTimer(period, delay)
     }
 
     /**
-     * @param plugin 実行するプラグイン
      * @param period 繰り返し間隔 tick
      * @param times 繰り返し回数
      * @param delay 遅らせる時間 tick default: 0
-     * @param run 繰り返し実行する処理
+     * @param action 繰り返し実行する処理
      * @return [CustomTask]?
      */
-    fun runRepeatTimes(
-        plugin: Plugin, period: Long, times: Int, delay: Long = 0, run: CustomTask.() -> Unit
+    fun Plugin.runRepeatTimes(
+        period: Long, times: Int, delay: Long = 0, action: CustomTask.() -> Unit
     ): CustomTask? {
-        return schedule(plugin, run).runRepeatTimes(period, times, delay)
+        return schedule(action).runRepeatTimes(period, times, delay)
     }
 
     /**
      * @param listWithDelay キーを待機時間としたマップ
-     * @param run 待機後に実行する処理
+     * @param action 待機後に実行する処理
      * @return [Set]<[CustomTask]>
      */
     fun <T> runListWithDelay(
-        listWithDelay: Map<Long, Set<T>>, run: (T) -> Unit
+        listWithDelay: Map<Long, Set<T>>, action: (T) -> Unit
     ): Set<CustomTask> {
         return mutableSetOf<CustomTask>().also { taskList ->
             listWithDelay.forEach { (delay, value) ->
-                runLater(plugin, delay) {
-                    run(plugin) {
+                plugin.runLater(delay) {
+                    plugin.runSchedule {
                         value.forEach {
-                            run.invoke(it)
+                            action.invoke(it)
                         }
                     }
                     taskList.remove(this)

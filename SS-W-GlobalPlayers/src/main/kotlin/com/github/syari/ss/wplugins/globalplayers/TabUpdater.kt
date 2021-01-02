@@ -12,7 +12,7 @@ import net.md_5.bungee.event.EventHandler
 
 object TabUpdater: Listener {
     private fun updateTabList() {
-        runLater(plugin, 5) {
+        plugin.runLater(5) {
             val playerList = plugin.proxy.players.map(ProxiedPlayer::getDisplayName)
             plugin.proxy.serversCopy.values.forEach {
                 PluginMessage.send(it, PluginMessageTemplateTabList(playerList))

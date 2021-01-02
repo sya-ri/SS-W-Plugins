@@ -40,7 +40,7 @@ object BootstrapBuilder: OnEnable, OnDisable {
     private lateinit var bootstrap: VotifierServerBootstrap
 
     private fun load(output: CommandSender) {
-        config(plugin, output, "config.yml") {
+        plugin.config(output, "config.yml") {
             val (host, isEditHost) = getHost()
             val (port, isEditPort) = getPort()
             val (token, isEditToken) = getToken()
