@@ -8,7 +8,7 @@ import com.github.syari.ss.wplugins.discord.api.ConnectStatus
 
 class Main: SSPlugin() {
     override fun onEnable() {
-        config(this, console, "config.yml") {
+        config(console, "config.yml") {
             val token = get("token", ConfigDataType.STRING)
             if (token != null) {
                 Discord.login(token)
