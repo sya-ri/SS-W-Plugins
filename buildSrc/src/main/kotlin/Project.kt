@@ -15,8 +15,8 @@ open class Project(val version: String, groupName: String = "") {
         override val dependProject = listOf(Core)
     }
 
-    object Chat: Project(3) {
-        override val dependProject = listOf(Core)
+    object Chat: Project(4) {
+        override val dependProject = listOf(Core, Discord)
     }
 
     object Core: Project(7) {
