@@ -6,7 +6,7 @@ import net.md_5.bungee.api.event.ChatEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 
-object EventListener: Listener {
+object ChatListener: Listener {
     @EventHandler
     fun on(e: ChatEvent) {
         if (e.message.firstOrNull() == '/') return
@@ -16,6 +16,7 @@ object EventListener: Listener {
         if (chatSender.isGlobalChannel) {
             val message = chatSender.getGlobalTemplateMessage(sender, e.message)
             plugin.proxy.broadcast(message)
+            Discord.sendToGlobal(message.toPlainText())
             e.isCancelled = true
         }
     }
