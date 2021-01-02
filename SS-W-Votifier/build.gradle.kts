@@ -12,5 +12,5 @@ bungee {
     version = project.version
     main = project.main
     author = project.author
-    depends = project.dependPlugin
+    depends = project.allDependPlugin
 }
