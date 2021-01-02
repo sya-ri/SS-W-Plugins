@@ -34,6 +34,6 @@ object MessageConverter {
     }
 
     private fun matchesHalfWidthChar(text: String): Boolean {
-        return text.matches("^[a-zA-Z0-9!-/:-@\\[-`{-~]*\$".toRegex())
+        return text.matches("^[a-zA-Z0-9!-/:-@\\[-`{-~\\s]*\$".toRegex())
     }
 }
