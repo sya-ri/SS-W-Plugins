@@ -1,80 +1,43 @@
-interface Project {
-    companion object {
-        private const val group = "com.github.syari.ss.wplugins"
+open class Project(val version: String, groupName: String = "") {
+    constructor(buildVersion: Int): this(buildVersion.toString())
 
-        fun subgroup(path: String) = "$group.$path"
+    private val simpleName = javaClass.simpleName
+    val name by lazy { "SS-W-${if (groupName.isEmpty()) "" else "$groupName-"}$simpleName" }
+    val group by lazy { "com.github.syari.ss.wplugins.${if (groupName.isEmpty()) "" else "${groupName.toLowerCase()}."}${simpleName.toLowerCase()}" }
+    val main = "$group.Main"
+    val author = "sya_ri"
+    open val dependProject = listOf<Project>()
+    open val dependPlugin = listOf<String>()
+    val dependProjectName by lazy { dependProject.map { it.name } }
+    val allDependPlugin by lazy { (dependProjectName + dependPlugin).toSet() }
 
-        fun build(number: Int) = number.toString()
-    }
-
-    val name: String
-    val version: String
-    val group: String
-    val main: String
-        get() = "$group.Main"
-    val author: String
-        get() = "sya_ri"
-    val dependProject: List<Project>
-    val dependProjectName: Set<String>
-        get() = dependProject.map { it.name }.toSet()
-    val dependPlugin: Set<String>
-        get() = dependProjectName + extraDependPlugin
-    val extraDependPlugin: Set<String>
-        get() = setOf()
-
-    object AccessBlocker: Project {
-        override val name = "SS-W-AccessBlocker"
-        override val version = build(3)
-        override val group = subgroup("accessblocker")
+    object AccessBlocker: Project(3) {
         override val dependProject = listOf(Core)
     }
 
-    object Chat: Project {
-        override val name = "SS-W-Chat"
-        override val version = build(3)
-        override val group = subgroup("chat")
+    object Chat: Project(3) {
         override val dependProject = listOf(Core)
     }
 
-    object Core: Project {
-        override val name = "SS-W-Core"
-        override val version = build(7)
-        override val group = subgroup("core")
+    object Core: Project(7) {
         override val dependProject = listOf(Kotlin)
     }
 
-    object Discord: Project {
-        override val name = "SS-W-Discord"
-        override val version = build(2)
-        override val group = subgroup("discord")
+    object Discord: Project(2) {
         override val dependProject = listOf(Core)
     }
 
-    object GlobalPlayers: Project {
-        override val name = "SS-W-GlobalPlayers"
-        override val version = build(1)
-        override val group = subgroup("globalplayers")
+    object GlobalPlayers: Project(1) {
         override val dependProject = listOf(Core)
     }
 
-    object Kotlin: Project {
-        override val name = "SS-W-Kotlin"
-        override val version = "1.4.21"
-        override val group = subgroup("kotlin")
-        override val dependProject = listOf<Project>()
-    }
+    object Kotlin: Project("1.4.21")
 
-    object PluginManager: Project {
-        override val name = "SS-W-PluginManager"
-        override val version = build(2)
-        override val group = subgroup("pluginmanager")
+    object PluginManager: Project(2) {
         override val dependProject = listOf(Core)
     }
 
-    object Votifier: Project {
-        override val name = "SS-W-Votifier"
-        override val version = build(2)
-        override val group = subgroup("votifier")
+    object Votifier: Project(2) {
         override val dependProject = listOf(Core)
     }
 }
