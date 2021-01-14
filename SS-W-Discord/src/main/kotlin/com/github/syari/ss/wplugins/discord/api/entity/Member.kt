@@ -5,8 +5,11 @@ import com.github.syari.ss.wplugins.discord.api.util.json.getOrNull
 import com.google.gson.JsonObject
 
 data class Member(
-    val name: String, val id: Long, val isBot: Boolean, val nickName: String?
-): Mentionable {
+    val name: String,
+    val id: Long,
+    val isBot: Boolean,
+    val nickName: String?
+) : Mentionable {
     val displayName
         get() = nickName ?: name
 

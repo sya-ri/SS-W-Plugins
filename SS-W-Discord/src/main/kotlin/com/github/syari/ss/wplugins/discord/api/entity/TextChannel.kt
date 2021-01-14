@@ -7,11 +7,14 @@ import com.github.syari.ss.wplugins.discord.api.util.json.json
 /**
  * GuildTextChannel
  */
-data class TextChannel(val name: String, val id: Long): Mentionable {
+data class TextChannel(val name: String, val id: Long) : Mentionable {
     fun send(message: String) {
-        RestClient.request(EndPoint.CreateMessage(id), json {
-            "content" to message
-        })
+        RestClient.request(
+            EndPoint.CreateMessage(id),
+            json {
+                "content" to message
+            }
+        )
     }
 
     override val asMentionDisplay: String

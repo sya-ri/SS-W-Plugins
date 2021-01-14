@@ -5,7 +5,7 @@ import com.github.syari.ss.wplugins.core.pluginMessage.PluginMessage
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.plugin.Plugin
 
-class Main: SSPlugin() {
+class Main : SSPlugin() {
     companion object {
         internal lateinit var plugin: Plugin
 

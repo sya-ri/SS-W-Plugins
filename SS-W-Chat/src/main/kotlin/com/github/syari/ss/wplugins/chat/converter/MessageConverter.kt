@@ -7,11 +7,11 @@ object MessageConverter {
     interface ConvertResult {
         val formatMessage: String
 
-        class OnlyMessage(message: String): ConvertResult {
+        class OnlyMessage(message: String) : ConvertResult {
             override val formatMessage = "&f$message"
         }
 
-        class WithConverted(message: String, converted: String): ConvertResult {
+        class WithConverted(message: String, converted: String) : ConvertResult {
             override val formatMessage = "&f$converted &7($message)"
         }
     }

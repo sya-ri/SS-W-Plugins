@@ -6,7 +6,7 @@ import com.github.syari.ss.wplugins.core.config.CreateConfig.config
 import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 import com.github.syari.ss.wplugins.discord.api.ConnectStatus
 
-class Main: SSPlugin() {
+class Main : SSPlugin() {
     override fun onEnable() {
         config(console, "config.yml") {
             val token = get("token", ConfigDataType.STRING)

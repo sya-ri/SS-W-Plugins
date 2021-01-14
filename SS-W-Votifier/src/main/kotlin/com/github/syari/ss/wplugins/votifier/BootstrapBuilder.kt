@@ -22,7 +22,7 @@ import java.util.logging.Level
 /**
  * 投票受け入れの設定を行う
  */
-object BootstrapBuilder: OnEnable, OnDisable {
+object BootstrapBuilder : OnEnable, OnDisable {
     override fun onEnable() {
         load(console)
     }

@@ -94,7 +94,8 @@ open class CommandArgument internal constructor(
      * @return [ProxiedPlayer]?
      */
     open fun getPlayer(
-        index: Int, equalName: Boolean
+        index: Int,
+        equalName: Boolean
     ): ProxiedPlayer? {
         return getOrNull(index)?.let { rawPlayer ->
             val player = plugin.proxy.getPlayer(rawPlayer)

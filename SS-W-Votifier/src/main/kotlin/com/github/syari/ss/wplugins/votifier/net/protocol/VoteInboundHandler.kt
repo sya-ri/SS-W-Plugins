@@ -13,12 +13,13 @@ import java.util.concurrent.atomic.AtomicLong
 import java.util.logging.Level
 
 @Sharable
-class VoteInboundHandler: SimpleChannelInboundHandler<Vote>() {
+class VoteInboundHandler : SimpleChannelInboundHandler<Vote>() {
     private val lastError = AtomicLong()
     private val errorsSent = AtomicLong()
 
     override fun channelRead0(
-        ctx: ChannelHandlerContext, vote: Vote
+        ctx: ChannelHandlerContext,
+        vote: Vote
     ) {
         val session = ctx.channel().attr(VotifierSession.KEY).get()
         onVoteReceived(vote, session.version, ctx.channel().remoteAddress().toString())
@@ -34,7 +35,8 @@ class VoteInboundHandler: SimpleChannelInboundHandler<Vote>() {
     }
 
     override fun exceptionCaught(
-        ctx: ChannelHandlerContext, cause: Throwable
+        ctx: ChannelHandlerContext,
+        cause: Throwable
     ) {
         val session = ctx.channel().attr(VotifierSession.KEY).get()
         val remoteAddress = ctx.channel().remoteAddress().toString()
@@ -67,13 +69,17 @@ class VoteInboundHandler: SimpleChannelInboundHandler<Vote>() {
     }
 
     private fun onVoteReceived(
-        vote: Vote, protocolVersion: VotifierSession.ProtocolVersion, remoteAddress: String
+        vote: Vote,
+        protocolVersion: VotifierSession.ProtocolVersion,
+        remoteAddress: String
     ) {
         plugin.logger.info("Got a ${protocolVersion.humanReadable} vote record from $remoteAddress ->$vote")
     }
 
     private fun onError(
-        throwable: Throwable, alreadyHandledVote: Boolean, remoteAddress: String
+        throwable: Throwable,
+        alreadyHandledVote: Boolean,
+        remoteAddress: String
     ) {
         if (alreadyHandledVote) {
             plugin.logger.log(

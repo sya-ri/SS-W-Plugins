@@ -17,6 +17,6 @@ class Message(
     val contentDisplay = content.replaceAll(allMention)
 
     override fun toString(): String {
-        return "Message(#${channel.name} ${member.displayName}: ${contentDisplay})"
+        return "Message(#${channel.name} ${member.displayName}: $contentDisplay)"
     }
 }

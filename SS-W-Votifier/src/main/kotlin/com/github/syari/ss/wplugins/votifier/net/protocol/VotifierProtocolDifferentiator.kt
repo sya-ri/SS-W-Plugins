@@ -11,13 +11,15 @@ import io.netty.handler.codec.string.StringDecoder
 import io.netty.handler.codec.string.StringEncoder
 import java.nio.charset.StandardCharsets
 
-class VotifierProtocolDifferentiator: ByteToMessageDecoder() {
+class VotifierProtocolDifferentiator : ByteToMessageDecoder() {
     companion object {
         private const val PROTOCOL_2_MAGIC: Short = 0x733A
     }
 
     override fun decode(
-        ctx: ChannelHandlerContext, buf: ByteBuf, list: List<Any>
+        ctx: ChannelHandlerContext,
+        buf: ByteBuf,
+        list: List<Any>
     ) {
         val readable = buf.readableBytes()
         if (readable < 2) return

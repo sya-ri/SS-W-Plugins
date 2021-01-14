@@ -1,6 +1,6 @@
 package com.github.syari.ss.wplugins.core.command
 
-class CommandTabElement internal constructor(list: Iterable<String>): Collection<String> {
+class CommandTabElement internal constructor(list: Iterable<String>) : Collection<String> {
     companion object {
         /**
          * タブ補完の要素

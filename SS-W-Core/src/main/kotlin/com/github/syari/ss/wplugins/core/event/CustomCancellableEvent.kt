@@ -5,7 +5,7 @@ import net.md_5.bungee.api.plugin.Cancellable
 /**
  * キャンセル可能なイベント
  */
-open class CustomCancellableEvent: CustomEvent(), Cancellable {
+open class CustomCancellableEvent : CustomEvent(), Cancellable {
     private var cancelled: Boolean = false
 
     override fun isCancelled(): Boolean {

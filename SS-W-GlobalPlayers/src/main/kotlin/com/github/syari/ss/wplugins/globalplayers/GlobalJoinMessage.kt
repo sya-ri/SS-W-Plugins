@@ -7,18 +7,22 @@ import net.md_5.bungee.api.event.PostLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 
-object GlobalJoinMessage: Listener {
+object GlobalJoinMessage : Listener {
     @EventHandler
     fun on(e: PostLoginEvent) {
-        plugin.proxy.broadcast(buildJson {
-            append("&7&l>> &a&lJoin &f&l${e.player.displayName}")
-        })
+        plugin.proxy.broadcast(
+            buildJson {
+                append("&7&l>> &a&lJoin &f&l${e.player.displayName}")
+            }
+        )
     }
 
     @EventHandler
     fun on(e: PlayerDisconnectEvent) {
-        plugin.proxy.broadcast(buildJson {
-            append("&7&l>> &c&lQuit &f&l${e.player.displayName}")
-        })
+        plugin.proxy.broadcast(
+            buildJson {
+                append("&7&l>> &c&lQuit &f&l${e.player.displayName}")
+            }
+        )
     }
 }

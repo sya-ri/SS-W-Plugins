@@ -21,14 +21,16 @@ import javax.crypto.spec.SecretKeySpec
  * v2 デコーダー
  * HmacSHA256を利用した通信
  */
-class VotifierProtocolV2Decoder: MessageToMessageDecoder<String>() {
+class VotifierProtocolV2Decoder : MessageToMessageDecoder<String>() {
     companion object {
         private val RANDOM = SecureRandom()
     }
 
     @Throws(CorruptedFrameException::class, RuntimeException::class)
     override fun decode(
-        ctx: ChannelHandlerContext, s: String, list: MutableList<Any>
+        ctx: ChannelHandlerContext,
+        s: String,
+        list: MutableList<Any>
     ) {
         val voteMessage = fromJson(s)
         val session = ctx.channel().attr(VotifierSession.KEY).get()
@@ -53,7 +55,9 @@ class VotifierProtocolV2Decoder: MessageToMessageDecoder<String>() {
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
     private fun hmacEqual(
-        sig: ByteArray, message: ByteArray, key: Key
+        sig: ByteArray,
+        message: ByteArray,
+        key: Key
     ): Boolean {
         val mac = Mac.getInstance("HmacSHA256")
         mac.init(key)

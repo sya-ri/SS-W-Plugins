@@ -39,22 +39,25 @@ internal object RestClient {
 
                 try {
                     var url = DISCORD_API_URL + endPoint.path
-                    val response = client.send(buildHttpRequest {
-                        header("Accept", "application/json")
-                        header("Authorization", "Bot $token")
-                        header("User-Agent", "DiscordBot ($GITHUB_URL)")
-                        if (endPoint.method == HttpMethod.Get) {
-                            if (data != null) {
-                                val parameter = data.entrySet().joinToString("&") { "${it.key}=${it.value}" }
-                                url += "?$parameter"
+                    val response = client.send(
+                        buildHttpRequest {
+                            header("Accept", "application/json")
+                            header("Authorization", "Bot $token")
+                            header("User-Agent", "DiscordBot ($GITHUB_URL)")
+                            if (endPoint.method == HttpMethod.Get) {
+                                if (data != null) {
+                                    val parameter = data.entrySet().joinToString("&") { "${it.key}=${it.value}" }
+                                    url += "?$parameter"
+                                }
+                                method(endPoint.method.value, HttpRequest.BodyPublishers.noBody())
+                            } else {
+                                method(endPoint.method.value, HttpRequest.BodyPublishers.ofString(data?.toString() ?: "{}"))
+                                header("Content-Type", "application/json; charset=UTF-8")
                             }
-                            method(endPoint.method.value, HttpRequest.BodyPublishers.noBody())
-                        } else {
-                            method(endPoint.method.value, HttpRequest.BodyPublishers.ofString(data?.toString() ?: "{}"))
-                            header("Content-Type", "application/json; charset=UTF-8")
-                        }
-                        uri(URI.create(url))
-                    }, HttpResponse.BodyHandlers.ofString())
+                            uri(URI.create(url))
+                        },
+                        HttpResponse.BodyHandlers.ofString()
+                    )
                     val headers = response.headers()
                     val contentType = headers.firstValue("Content-Type").or { null }.orElse(null)
                     val body = response.body()

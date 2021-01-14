@@ -30,7 +30,8 @@ object CreateScheduler {
      * @return [CustomTask]?
      */
     fun Plugin.runLater(
-        delay: Long, action: CustomTask.() -> Unit
+        delay: Long,
+        action: CustomTask.() -> Unit
     ): CustomTask? {
         return schedule(action).runLater(delay)
     }
@@ -42,7 +43,9 @@ object CreateScheduler {
      * @return [CustomTask]?
      */
     fun Plugin.runTimer(
-        period: Long, delay: Long = 0, action: CustomTask.() -> Unit
+        period: Long,
+        delay: Long = 0,
+        action: CustomTask.() -> Unit
     ): CustomTask? {
         return schedule(action).runTimer(period, delay)
     }
@@ -55,7 +58,10 @@ object CreateScheduler {
      * @return [CustomTask]?
      */
     fun Plugin.runRepeatTimes(
-        period: Long, times: Int, delay: Long = 0, action: CustomTask.() -> Unit
+        period: Long,
+        times: Int,
+        delay: Long = 0,
+        action: CustomTask.() -> Unit
     ): CustomTask? {
         return schedule(action).runRepeatTimes(period, times, delay)
     }
@@ -66,7 +72,8 @@ object CreateScheduler {
      * @return [Set]<[CustomTask]>
      */
     fun <T> runListWithDelay(
-        listWithDelay: Map<Long, Set<T>>, action: (T) -> Unit
+        listWithDelay: Map<Long, Set<T>>,
+        action: (T) -> Unit
     ): Set<CustomTask> {
         return mutableSetOf<CustomTask>().also { taskList ->
             listWithDelay.forEach { (delay, value) ->

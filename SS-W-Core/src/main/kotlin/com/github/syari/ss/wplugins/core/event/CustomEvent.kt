@@ -5,4 +5,4 @@ import net.md_5.bungee.api.plugin.Event
 /**
  * イベント
  */
-open class CustomEvent: Event()
+open class CustomEvent : Event()

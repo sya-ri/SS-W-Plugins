@@ -61,38 +61,44 @@ internal object GatewayClient {
     }
 
     private fun authenticate(webSocket: WebSocket) {
-        send(webSocket, Opcode.IDENTIFY, json {
-            "token" to token
+        send(
+            webSocket, Opcode.IDENTIFY,
+            json {
+                "token" to token
 
-            if (GatewayIntents.isNotEmpty()) {
-                var value = 0
-                GatewayIntents.forEach {
-                    value = value or it.flag
+                if (GatewayIntents.isNotEmpty()) {
+                    var value = 0
+                    GatewayIntents.forEach {
+                        value = value or it.flag
+                    }
+                    LOGGER.trace("Intent flag: $value")
+                    "intents" to value
                 }
-                LOGGER.trace("Intent flag: $value")
-                "intents" to value
-            }
 
-            "properties" to json {
-                "\$os" to "who knows"
-                "\$browser" to "who knows"
-                "\$device" to "who knows"
-            }
+                "properties" to json {
+                    "\$os" to "who knows"
+                    "\$browser" to "who knows"
+                    "\$device" to "who knows"
+                }
 
-            "shard" to jsonArray {
-                +JsonPrimitive(Shard)
-                +JsonPrimitive(MaxShards)
+                "shard" to jsonArray {
+                    +JsonPrimitive(Shard)
+                    +JsonPrimitive(MaxShards)
+                }
             }
-        })
+        )
     }
 
     private fun resume(webSocket: WebSocket) {
         val sessionId = sessionId ?: throw IllegalArgumentException("sessionId is null")
-        send(webSocket, Opcode.RESUME, json {
-            "session_id" to sessionId
-            "token" to token
-            "seq" to lastSequence
-        })
+        send(
+            webSocket, Opcode.RESUME,
+            json {
+                "session_id" to sessionId
+                "token" to token
+                "seq" to lastSequence
+            }
+        )
     }
 
     private fun handleMessage(webSocket: WebSocket, text: String) {
@@ -109,16 +115,19 @@ internal object GatewayClient {
                 heartbeatAckReceived = true
 
                 heartbeatTask?.cancel()
-                Timer().schedule(timerTask {
-                    if (heartbeatAckReceived) {
-                        heartbeatAckReceived = false
-                        send(webSocket, Opcode.HEARTBEAT, json { lastSequence?.let { "d" to it } })
-                    } else {
-                        webSocket.sendClose(4000, "Heartbeat ACK wasn't received")
-                    }
-                }.apply {
-                    heartbeatTask = this
-                }, 0, period)
+                Timer().schedule(
+                    timerTask {
+                        if (heartbeatAckReceived) {
+                            heartbeatAckReceived = false
+                            send(webSocket, Opcode.HEARTBEAT, json { lastSequence?.let { "d" to it } })
+                        } else {
+                            webSocket.sendClose(4000, "Heartbeat ACK wasn't received")
+                        }
+                    }.apply {
+                        heartbeatTask = this
+                    },
+                    0, period
+                )
             }
             Opcode.RECONNECT -> {
                 LOGGER.info("Received RECONNECT opcode. Attempting to reconnect.")
@@ -164,7 +173,7 @@ internal object GatewayClient {
         webSocket.sendText(json, true)
     }
 
-    object Listener: WebSocket.Listener {
+    object Listener : WebSocket.Listener {
         override fun onOpen(webSocket: WebSocket) {
             LOGGER.info("Connected to the gateway")
             DiscordAPI.status = ConnectStatus.CONNECTED

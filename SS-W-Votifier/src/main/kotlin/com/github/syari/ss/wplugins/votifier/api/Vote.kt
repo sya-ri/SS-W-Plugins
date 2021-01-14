@@ -8,7 +8,8 @@ import com.google.gson.JsonObject
  * @param username プレイヤー名
  */
 data class Vote(
-    val serviceName: String, val username: String
+    val serviceName: String,
+    val username: String
 ) {
     companion object {
         /**
@@ -26,5 +27,4 @@ data class Vote(
             }
         }
     }
-
 }

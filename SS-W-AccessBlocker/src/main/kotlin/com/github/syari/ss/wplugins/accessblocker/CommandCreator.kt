@@ -5,7 +5,7 @@ import com.github.syari.ss.wplugins.core.code.OnEnable
 import com.github.syari.ss.wplugins.core.command.CommandCreator.Companion.command
 import com.github.syari.ss.wplugins.core.command.CommandTabElement.Companion.element
 
-object CommandCreator: OnEnable {
+object CommandCreator : OnEnable {
     override fun onEnable() {
         plugin.command("access-blocker", "AccessBlocker") {
             tab {

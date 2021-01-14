@@ -6,7 +6,7 @@ import com.github.syari.ss.wplugins.core.command.CommandTabElement.Companion.ele
 import com.github.syari.ss.wplugins.votifier.BootstrapBuilder.reload
 import com.github.syari.ss.wplugins.votifier.Main.Companion.plugin
 
-object CommandCreator: OnEnable {
+object CommandCreator : OnEnable {
     override fun onEnable() {
         plugin.command("votifier", "SS-Votifier") {
             tab {

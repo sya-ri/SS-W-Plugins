@@ -24,7 +24,8 @@ import java.util.concurrent.ThreadFactory
 import java.util.logging.Level
 
 class VotifierServerBootstrap(
-    private val host: String, private val port: Int
+    private val host: String,
+    private val port: Int
 ) {
     private val bossLoopGroup: EventLoopGroup
     private val eventLoopGroup: EventLoopGroup
@@ -50,24 +51,26 @@ class VotifierServerBootstrap(
         }
         ServerBootstrap().channel(channelClass).group(
             bossLoopGroup, eventLoopGroup
-        ).childHandler(object: ChannelInitializer<SocketChannel>() {
+        ).childHandler(object : ChannelInitializer<SocketChannel>() {
             override fun initChannel(channel: SocketChannel) {
                 channel.attr(VotifierSession.KEY).set(VotifierSession())
                 channel.pipeline().addLast("greetingHandler", VotifierGreetingHandler())
                 channel.pipeline().addLast("protocolDifferentiator", VotifierProtocolDifferentiator())
                 channel.pipeline().addLast("voteHandler", VoteInboundHandler())
             }
-        }).bind(host, port).addListener(ChannelFutureListener { future: ChannelFuture ->
-            if (future.isSuccess) {
-                serverChannel = future.channel()
-                plugin.logger.info("Votifier enabled on socket " + serverChannel?.localAddress() + ".")
-            } else {
-                val socketAddress = future.channel().localAddress() ?: InetSocketAddress(host, port)
-                plugin.logger.log(
-                    Level.SEVERE, "Votifier was not able to bind to $socketAddress", future.cause()
-                )
+        }).bind(host, port).addListener(
+            ChannelFutureListener { future: ChannelFuture ->
+                if (future.isSuccess) {
+                    serverChannel = future.channel()
+                    plugin.logger.info("Votifier enabled on socket " + serverChannel?.localAddress() + ".")
+                } else {
+                    val socketAddress = future.channel().localAddress() ?: InetSocketAddress(host, port)
+                    plugin.logger.log(
+                        Level.SEVERE, "Votifier was not able to bind to $socketAddress", future.cause()
+                    )
+                }
             }
-        })
+        )
     }
 
     fun shutdown() {

@@ -8,7 +8,7 @@ import net.md_5.bungee.api.event.PluginMessageEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 
-object BrandBlocker: Listener {
+object BrandBlocker : Listener {
     var availableList = listOf<String>()
 
     private fun isAvailable(name: String) = availableList.contains(name)
@@ -21,9 +21,11 @@ object BrandBlocker: Listener {
             val brandName = e.data.slice(1..length).toByteArray().toString(Charsets.UTF_8)
             if (isAvailable(brandName).not()) {
                 plugin.proxy.console.send("&b[BrandBlock] &a${player.name} &fは &a$brandName &fを使用していた為、ログインが制限されました")
-                player.disconnect(buildJson {
-                    appendln("&c&l許可されていないクライアントを使用しています")
-                })
+                player.disconnect(
+                    buildJson {
+                        appendln("&c&l許可されていないクライアントを使用しています")
+                    }
+                )
             }
         }
     }

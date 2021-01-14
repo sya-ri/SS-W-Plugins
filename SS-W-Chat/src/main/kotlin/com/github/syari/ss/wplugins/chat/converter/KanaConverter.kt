@@ -72,7 +72,9 @@ object KanaConverter {
     }
 
     private fun getKanaFromTable(
-        last: String, vowel: Char, vowelIndex: Int
+        last: String,
+        vowel: Char,
+        vowelIndex: Int
     ): String {
         val consonantArray = kanaTable[last]
         return when {

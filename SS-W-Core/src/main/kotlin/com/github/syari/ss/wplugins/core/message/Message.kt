@@ -24,7 +24,8 @@ object Message {
      * @param to 送信先
      */
     fun send(
-        message: String, vararg to: CommandSender
+        message: String,
+        vararg to: CommandSender
     ) {
         val component = message.toColor.toComponent
         to.forEach {
@@ -38,7 +39,8 @@ object Message {
      * @param to 送信先
      */
     fun send(
-        message: TextComponent, vararg to: CommandSender
+        message: TextComponent,
+        vararg to: CommandSender
     ) {
         to.forEach {
             it.sendMessage(message)
@@ -70,15 +72,21 @@ object Message {
      * @param fadeOut フェードアウト時間
      */
     fun ProxiedPlayer.title(
-        main: String, sub: String, fadeIn: Int, stay: Int, fadeOut: Int
+        main: String,
+        sub: String,
+        fadeIn: Int,
+        stay: Int,
+        fadeOut: Int
     ) {
-        sendTitle(plugin.proxy.createTitle().apply {
-            title(main.toColor.toComponent)
-            subTitle(sub.toColor.toComponent)
-            fadeIn(fadeIn)
-            stay(stay)
-            fadeOut(fadeOut)
-        })
+        sendTitle(
+            plugin.proxy.createTitle().apply {
+                title(main.toColor.toComponent)
+                subTitle(sub.toColor.toComponent)
+                fadeIn(fadeIn)
+                stay(stay)
+                fadeOut(fadeOut)
+            }
+        )
     }
 
     /**

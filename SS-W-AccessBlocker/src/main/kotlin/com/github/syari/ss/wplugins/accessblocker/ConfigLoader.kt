@@ -8,7 +8,7 @@ import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 import net.md_5.bungee.api.CommandSender
 import java.util.UUID
 
-object ConfigLoader: OnEnable {
+object ConfigLoader : OnEnable {
     override fun onEnable() {
         load(console)
     }

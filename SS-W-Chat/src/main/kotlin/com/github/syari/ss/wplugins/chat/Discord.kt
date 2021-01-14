@@ -9,7 +9,7 @@ import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 import com.github.syari.ss.wplugins.discord.Discord as DiscordAPI
 
-object Discord: Listener {
+object Discord : Listener {
     var joinUrl: String? = null
     var globalChannelId: Long? = null
     private val globalChannel by lazy { globalChannelId?.let { DiscordAPI.getTextChannel(it) } }
@@ -21,15 +21,17 @@ object Discord: Listener {
             globalChannelId -> {
                 val name = e.member.displayName
                 val message = e.contentDisplay
-                plugin.proxy.broadcast(buildJson {
-                    joinUrl?.let {
-                        append("&d${name.toUncolor}", JsonBuilder.Hover.Text("&6Discord に参加する"), JsonBuilder.Click.OpenURL(it))
-                    } ?: run {
-                        append("&d${name.toUncolor}")
+                plugin.proxy.broadcast(
+                    buildJson {
+                        joinUrl?.let {
+                            append("&d${name.toUncolor}", JsonBuilder.Hover.Text("&6Discord に参加する"), JsonBuilder.Click.OpenURL(it))
+                        } ?: run {
+                            append("&d${name.toUncolor}")
+                        }
+                        append("&d: ")
+                        append(message.toUncolor)
                     }
-                    append("&d: ")
-                    append(message.toUncolor)
-                })
+                )
             }
         }
     }

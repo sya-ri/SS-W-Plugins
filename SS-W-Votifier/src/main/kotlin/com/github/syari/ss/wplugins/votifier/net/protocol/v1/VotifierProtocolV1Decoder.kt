@@ -15,10 +15,12 @@ import java.nio.charset.StandardCharsets
  * v1 デコーダー
  * RSAを利用した通信
  */
-class VotifierProtocolV1Decoder: ByteToMessageDecoder() {
+class VotifierProtocolV1Decoder : ByteToMessageDecoder() {
     @Throws(QuietException::class)
     override fun decode(
-        ctx: ChannelHandlerContext, buf: ByteBuf, list: MutableList<Any>
+        ctx: ChannelHandlerContext,
+        buf: ByteBuf,
+        list: MutableList<Any>
     ) {
         if (!ctx.channel().isActive) {
             buf.skipBytes(buf.readableBytes())

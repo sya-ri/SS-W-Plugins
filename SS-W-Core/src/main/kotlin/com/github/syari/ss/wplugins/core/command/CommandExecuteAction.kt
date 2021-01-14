@@ -6,7 +6,9 @@ import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 
 class CommandExecuteAction internal constructor(
-    private val prefix: String, val sender: CommandSender, val args: CommandExecuteArgument
+    private val prefix: String,
+    val sender: CommandSender,
+    val args: CommandExecuteArgument
 ) {
     init {
         args.executeAction = this
@@ -52,7 +54,6 @@ class CommandExecuteAction internal constructor(
      * Format: "/$first &7$second"
      * ```
      * @param command コマンド一覧
-     * @return [SendHelpIfOp]
      */
     fun sendHelp(vararg command: Pair<String, String>) {
         sendList("コマンド一覧", command.map { "/${it.first} &7${it.second}" })
@@ -63,7 +64,8 @@ class CommandExecuteAction internal constructor(
      * @param element リストの要素
      */
     fun sendList(
-        title: String, vararg element: String
+        title: String,
+        vararg element: String
     ) {
         sendList(title, element.toList())
     }
@@ -73,13 +75,16 @@ class CommandExecuteAction internal constructor(
      * @param element リストの要素
      */
     fun sendList(
-        title: String = "", element: Iterable<String>
+        title: String = "",
+        element: Iterable<String>
     ) {
         if (title.isNotEmpty()) sendWithPrefix("&f$title")
-        sender.send(buildString {
-            element.forEach {
-                appendLine("&7- &a$it")
+        sender.send(
+            buildString {
+                element.forEach {
+                    appendLine("&7- &a$it")
+                }
             }
-        })
+        )
     }
 }

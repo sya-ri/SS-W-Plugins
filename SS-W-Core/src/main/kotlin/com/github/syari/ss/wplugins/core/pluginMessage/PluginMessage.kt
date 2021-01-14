@@ -9,11 +9,12 @@ import net.md_5.bungee.api.event.PluginMessageEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 
-object PluginMessage: OnEnable, Listener {
+object PluginMessage : OnEnable, Listener {
     override fun onEnable() {
         plugin.proxy.registerChannel(PluginMessageTemplate.ChannelName)
     }
 
+    @Suppress("UnstableApiUsage")
     @EventHandler
     fun on(e: PluginMessageEvent) {
         if (e.tag.equals(PluginMessageTemplate.ChannelName, true)) {
@@ -23,6 +24,7 @@ object PluginMessage: OnEnable, Listener {
         }
     }
 
+    @Suppress("UnstableApiUsage")
     fun send(server: ServerInfo, template: PluginMessageTemplate) {
         val dataOutput = ByteStreams.newDataOutput()
         dataOutput.writeUTF(template.subChannel)

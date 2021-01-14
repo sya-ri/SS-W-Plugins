@@ -9,8 +9,9 @@ import net.md_5.bungee.api.scheduler.ScheduledTask
 import java.util.concurrent.TimeUnit
 
 class CustomRunnable internal constructor(
-    private val plugin: Plugin, private val run: CustomTask.() -> Unit
-): CustomTask {
+    private val plugin: Plugin,
+    private val run: CustomTask.() -> Unit
+) : CustomTask {
     private val isRunning
         get() = alreadyInit
 
@@ -65,7 +66,8 @@ class CustomRunnable internal constructor(
      * @return [CustomTask]?
      */
     fun runTimer(
-        period: Long, delay: Long = 0
+        period: Long,
+        delay: Long = 0
     ): CustomTask? {
         return runRepeatTimes(period, -1, delay)
     }
@@ -75,7 +77,9 @@ class CustomRunnable internal constructor(
      * @return [CustomTask]?
      */
     fun runRepeatTimes(
-        period: Long, times: Int, delay: Long = 0
+        period: Long,
+        times: Int,
+        delay: Long = 0
     ): CustomTask? {
         return if (isRunning) {
             null

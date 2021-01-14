@@ -6,7 +6,7 @@ import com.github.syari.ss.wplugins.core.code.OnEnable
 import com.github.syari.ss.wplugins.core.config.CreateConfig.config
 import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 
-object ConfigLoader: OnEnable {
+object ConfigLoader : OnEnable {
     override fun onEnable() {
         plugin.config(console, "config.yml") {
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)

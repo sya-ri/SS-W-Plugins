@@ -33,19 +33,24 @@ class CommandCreator(val label: String, val messagePrefix: String) {
     }
 
     internal fun register(plugin: Plugin) {
-        registerCommand(plugin, object: Command(label, Permission.admin), TabExecutor {
-            override fun execute(
-                sender: CommandSender, args: Array<out String>
-            ) {
-                executeAction(CommandExecuteAction(messagePrefix, sender, CommandExecuteArgument(args)))
-            }
+        registerCommand(
+            plugin,
+            object : Command(label, Permission.admin), TabExecutor {
+                override fun execute(
+                    sender: CommandSender,
+                    args: Array<out String>
+                ) {
+                    executeAction(CommandExecuteAction(messagePrefix, sender, CommandExecuteArgument(args)))
+                }
 
-            override fun onTabComplete(
-                sender: CommandSender, args: Array<out String>
-            ): List<String> {
-                return tabContainer.get(sender, args)
+                override fun onTabComplete(
+                    sender: CommandSender,
+                    args: Array<out String>
+                ): List<String> {
+                    return tabContainer.get(sender, args)
+                }
             }
-        })
+        )
     }
 
     private fun registerCommand(plugin: Plugin, command: Command) {

@@ -3,7 +3,7 @@ package com.github.syari.ss.wplugins.core.code
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.api.plugin.Plugin
 
-open class SSPlugin: Plugin() {
+open class SSPlugin : Plugin() {
     open val listeners = listOf<Listener>()
     open val onEnables = listOf<OnEnable>()
     open val onDisables = listOf<OnDisable>()

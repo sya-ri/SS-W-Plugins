@@ -30,5 +30,4 @@ class VotifierSession {
         @JvmField
         val KEY: AttributeKey<VotifierSession> = AttributeKey.valueOf("votifier_session")
     }
-
 }

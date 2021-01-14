@@ -1,6 +1,6 @@
 package com.github.syari.ss.wplugins.discord.api.entity
 
-data class Emoji(val name: String, val id: Long, val isAnimated: Boolean): Mentionable {
+data class Emoji(val name: String, val id: Long, val isAnimated: Boolean) : Mentionable {
     override val asMentionDisplay: String
         get() = ":$name:"
 

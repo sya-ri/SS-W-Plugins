@@ -7,7 +7,7 @@ import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 import java.util.UUID
 
-object WhiteList: Listener {
+object WhiteList : Listener {
     var list = mutableListOf<UUID>()
 
     var isEnable = true
@@ -17,9 +17,11 @@ object WhiteList: Listener {
     @EventHandler
     fun on(e: LoginEvent) {
         if (isEnable && canJoin(e.connection).not()) {
-            e.setCancelReason(buildJson {
-                append("&f&lサーバーはメンテナンス中です")
-            })
+            e.setCancelReason(
+                buildJson {
+                    append("&f&lサーバーはメンテナンス中です")
+                }
+            )
         }
     }
 }
