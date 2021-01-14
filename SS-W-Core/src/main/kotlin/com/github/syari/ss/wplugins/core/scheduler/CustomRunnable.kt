@@ -2,7 +2,6 @@ package com.github.syari.ss.wplugins.core.scheduler
 
 import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runLater
 import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runRepeatTimes
-import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runSchedule
 import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runTimer
 import net.md_5.bungee.api.plugin.Plugin
 import net.md_5.bungee.api.scheduler.ScheduledTask
