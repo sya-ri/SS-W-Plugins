@@ -1,5 +1,5 @@
 open class Project(val version: String, groupName: String = "") {
-    constructor(buildVersion: Int): this(buildVersion.toString())
+    constructor(buildVersion: Int) : this(buildVersion.toString())
 
     private val simpleName = javaClass.simpleName
     val name by lazy { "SS-W-${if (groupName.isEmpty()) "" else "$groupName-"}$simpleName" }
@@ -11,33 +11,33 @@ open class Project(val version: String, groupName: String = "") {
     val dependProjectName by lazy { dependProject.map { it.name } }
     val allDependPlugin by lazy { (dependProjectName + dependPlugin).toSet() }
 
-    object AccessBlocker: Project(4) {
+    object AccessBlocker : Project(4) {
         override val dependProject = listOf(Core)
     }
 
-    object Chat: Project(6) {
+    object Chat : Project(6) {
         override val dependProject = listOf(Core, Discord)
     }
 
-    object Core: Project(9) {
+    object Core : Project(9) {
         override val dependProject = listOf(Kotlin)
     }
 
-    object Discord: Project(3) {
+    object Discord : Project(3) {
         override val dependProject = listOf(Core)
     }
 
-    object GlobalPlayers: Project(2) {
+    object GlobalPlayers : Project(2) {
         override val dependProject = listOf(Core)
     }
 
-    object Kotlin: Project("1.4.21")
+    object Kotlin : Project("1.4.21")
 
-    object PluginManager: Project(2) {
+    object PluginManager : Project(2) {
         override val dependProject = listOf(Core)
     }
 
-    object Votifier: Project(3) {
+    object Votifier : Project(3) {
         override val dependProject = listOf(Core)
     }
 }
