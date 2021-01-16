@@ -23,7 +23,7 @@ open class Project(val version: String, groupName: String = "") {
         override val dependProject = listOf(Kotlin)
     }
 
-    object Discord : Project(3) {
+    object Discord : Project(4) {
         override val dependProject = listOf(Core)
     }
 
