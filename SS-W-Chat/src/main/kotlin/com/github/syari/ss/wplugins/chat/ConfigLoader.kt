@@ -7,10 +7,17 @@ import com.github.syari.ss.wplugins.core.config.CreateConfig.config
 import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 
 object ConfigLoader : OnEnable {
+    @OptIn(ExperimentalStdlibApi::class)
     override fun onEnable() {
         plugin.config(console, "config.yml") {
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
-            // Discord.globalChannelId = get("discord.global", ConfigDataType.LONG, false)
+            Discord.listenChannels = buildMap {
+                section("discord.channel", false)?.forEach { name ->
+                    get("discord.channel.$name", ConfigDataType.LONG)?.let {
+                        put(it, ChatChannel.get(name))
+                    }
+                }
+            }
         }
     }
 }

@@ -11,6 +11,10 @@ import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
 sealed class ChatChannel(val name: String) {
+    companion object {
+        fun get(name: String) = if (name == Global.name) Global else Private.get(name)
+    }
+
     var discordChannel: TextChannel? = null
 
     abstract fun send(message: TextComponent)

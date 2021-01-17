@@ -10,12 +10,12 @@ import net.md_5.bungee.event.EventHandler
 object Discord : Listener {
     var joinUrl: String? = null
 
-    private val channels = mutableMapOf<Long, ChatChannel>()
+    var listenChannels = mapOf<Long, ChatChannel>()
 
     @EventHandler
     fun on(e: DiscordMessageReceiveEvent) {
         if (e.member.isBot) return
-        channels[e.channel.id]?.let {
+        listenChannels[e.channel.id]?.let {
             val name = e.member.displayName
             val message = e.contentDisplay
             it.send(
