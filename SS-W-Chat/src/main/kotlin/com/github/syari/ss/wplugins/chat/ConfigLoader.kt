@@ -12,7 +12,8 @@ object ConfigLoader : OnEnable {
         plugin.config(console, "config.yml") {
             ChatChannelOption.list = section("channel", false)?.associate {
                 val discordChannelId = get("channel.$it.discord", ConfigDataType.LONG, false)
-                it.toRegex() to ChatChannelOption(discordChannelId)
+                val prefix = get("channel.$it.prefix", ConfigDataType.STRING, false)
+                it.toRegex() to ChatChannelOption(discordChannelId, prefix)
             }.orEmpty()
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
             Discord.listenChannels = buildMap {
