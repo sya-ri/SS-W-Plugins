@@ -14,7 +14,7 @@ sealed class ChatChannel(val name: String) {
         fun get(name: String) = if (name == Global.name) Global else Private.get(name)
     }
 
-    private val options = ChatChannelOption.get(name)
+    protected val options = ChatChannelOption.get(name)
 
     abstract fun send(message: TextComponent)
 
@@ -52,6 +52,10 @@ sealed class ChatChannel(val name: String) {
         }
 
         private val list = mutableSetOf<ChatSender>()
+
+        init {
+            addPlayers(options.flatMap(ChatChannelOption::players).map(ChatSender::get))
+        }
 
         fun addPlayers(players: Collection<ChatSender>) {
             list.addAll(players)

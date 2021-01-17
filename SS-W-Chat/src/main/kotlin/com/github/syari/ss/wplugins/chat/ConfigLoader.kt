@@ -13,7 +13,8 @@ object ConfigLoader : OnEnable {
             ChatChannelOption.list = section("channel", false)?.associate {
                 val discordChannelId = get("channel.$it.discord", ConfigDataType.LONG, false)
                 val prefix = get("channel.$it.prefix", ConfigDataType.STRING, false)
-                it.toRegex() to ChatChannelOption(discordChannelId, prefix)
+                val players = get("channel.$it.player", ConfigUUIDListDataType, false).orEmpty()
+                it.toRegex() to ChatChannelOption(discordChannelId, prefix, players)
             }.orEmpty()
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
             Discord.listenChannels = buildMap {

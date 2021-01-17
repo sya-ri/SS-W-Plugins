@@ -1,8 +1,9 @@
 package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.wplugins.discord.Discord
+import java.util.UUID
 
-class ChatChannelOption(discordChannelId: Long?, val prefix: String?) {
+class ChatChannelOption(discordChannelId: Long?, val prefix: String?, val players: List<UUID>) {
     companion object {
         var list = mapOf<Regex, ChatChannelOption>()
 
