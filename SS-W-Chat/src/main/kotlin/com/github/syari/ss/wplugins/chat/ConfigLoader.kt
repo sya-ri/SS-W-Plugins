@@ -10,7 +10,7 @@ object ConfigLoader : OnEnable {
     override fun onEnable() {
         plugin.config(console, "config.yml") {
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
-            Discord.globalChannelId = get("discord.global", ConfigDataType.LONG, false)
+            // Discord.globalChannelId = get("discord.global", ConfigDataType.LONG, false)
         }
     }
 }
