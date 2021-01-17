@@ -24,11 +24,11 @@ class ChatSender {
         }
     }
 
+    var channel: ChatChannel? = null
+
     companion object {
         private val list = mutableMapOf<UUID, ChatSender>()
 
-        fun get(player: ProxiedPlayer): ChatSender {
-            return list.getOrPut(player.uniqueId) { ChatSender() }
-        }
+        fun get(player: ProxiedPlayer) = list.getOrPut(player.uniqueId, ::ChatSender)
     }
 }

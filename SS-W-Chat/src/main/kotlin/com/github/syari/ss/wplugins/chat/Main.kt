@@ -8,7 +8,7 @@ class Main : SSPlugin() {
         internal lateinit var plugin: Plugin
     }
 
-    override val listeners = listOf(ChatListener, Discord)
+    override val listeners = listOf(EventListener, Discord)
     override val onEnables = listOf(ConfigLoader)
 
     override fun onEnable() {
