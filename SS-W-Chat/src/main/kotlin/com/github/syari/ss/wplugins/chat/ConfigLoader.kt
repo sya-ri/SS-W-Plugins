@@ -10,6 +10,10 @@ object ConfigLoader : OnEnable {
     @OptIn(ExperimentalStdlibApi::class)
     override fun onEnable() {
         plugin.config(console, "config.yml") {
+            ChatChannelOption.list = section("channel", false)?.associate {
+                val discordChannelId = get("channel.$it.discord", ConfigDataType.LONG, false)
+                it.toRegex() to ChatChannelOption(discordChannelId)
+            }.orEmpty()
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
             Discord.listenChannels = buildMap {
                 section("discord.channel", false)?.forEach { name ->

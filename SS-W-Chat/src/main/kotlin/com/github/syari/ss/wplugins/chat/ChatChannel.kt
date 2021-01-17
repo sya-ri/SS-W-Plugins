@@ -6,7 +6,6 @@ import com.github.syari.ss.wplugins.core.code.StringEditor.toColor
 import com.github.syari.ss.wplugins.core.code.StringEditor.toUncolor
 import com.github.syari.ss.wplugins.core.message.JsonBuilder
 import com.github.syari.ss.wplugins.core.message.Message.send
-import com.github.syari.ss.wplugins.discord.api.entity.TextChannel
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
@@ -15,14 +14,14 @@ sealed class ChatChannel(val name: String) {
         fun get(name: String) = if (name == Global.name) Global else Private.get(name)
     }
 
-    var discordChannel: TextChannel? = null
+    private val options = ChatChannelOption.get(name)
 
     abstract fun send(message: TextComponent)
 
     fun send(player: ProxiedPlayer, message: String) {
         val templateMessage = getTemplate(player, message)
         send(templateMessage)
-        discordChannel?.send(templateMessage.toPlainText())
+        options.forEach { it.discordChannel?.send(templateMessage.toPlainText()) }
     }
 
     private fun getTemplate(player: ProxiedPlayer, message: String): TextComponent {
