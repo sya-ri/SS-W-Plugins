@@ -17,9 +17,18 @@ sealed class ChatChannel(val name: String) {
 
         val nameList
             get() = listOf(Global.name) + Private.nameList
+
+        fun reloadOption() {
+            Global.reloadOption()
+            Private.reloadOption()
+        }
     }
 
-    protected val options = ChatChannelOption.get(name)
+    protected var options = listOf<ChatChannelOption>()
+
+    open fun reloadOption() {
+        options = ChatChannelOption.get(name)
+    }
 
     abstract fun send(message: TextComponent)
 
@@ -41,6 +50,10 @@ sealed class ChatChannel(val name: String) {
     }
 
     object Global : ChatChannel("global") {
+        init {
+            reloadOption()
+        }
+
         override fun send(message: TextComponent) {
             plugin.proxy.broadcast(message)
         }
@@ -56,11 +69,21 @@ sealed class ChatChannel(val name: String) {
 
             val nameList
                 get() = list.keys
+
+            fun reloadOption() {
+                list.values.forEach(ChatChannel::reloadOption)
+            }
+        }
+
+        init {
+            reloadOption()
         }
 
         private val list = mutableSetOf<ChatSender>()
 
-        init {
+        override fun reloadOption() {
+            removePlayers(options.flatMap(ChatChannelOption::players).map(ChatSender::get))
+            super.reloadOption()
             addPlayers(options.flatMap(ChatChannelOption::players).map(ChatSender::get))
         }
 

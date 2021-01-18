@@ -30,6 +30,7 @@ object ConfigLoader : OnEnable {
                     }
                 }
             }
+            ChatChannel.reloadOption()
         }
     }
 }
