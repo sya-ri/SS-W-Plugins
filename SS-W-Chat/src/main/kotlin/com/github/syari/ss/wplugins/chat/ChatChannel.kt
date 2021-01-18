@@ -16,7 +16,7 @@ sealed class ChatChannel(val name: String) {
         fun getOrNull(name: String) = if (name == Global.name) Global else Private.getOrNull(name)
 
         val nameList
-            get() = Global.name + Private.nameList
+            get() = listOf(Global.name) + Private.nameList
     }
 
     protected val options = ChatChannelOption.get(name)
