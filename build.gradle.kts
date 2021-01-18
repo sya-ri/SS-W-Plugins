@@ -33,7 +33,10 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions {
+            jvmTarget = "11"
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        }
     }
 
     tasks.withType<ShadowJar> {
