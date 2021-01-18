@@ -75,11 +75,11 @@ sealed class ChatChannel(val name: String) {
             }
         }
 
+        private val list = mutableSetOf<ChatSender>()
+
         init {
             reloadOption()
         }
-
-        private val list = mutableSetOf<ChatSender>()
 
         override fun reloadOption() {
             removePlayers(options.flatMap(ChatChannelOption::players).map(ChatSender::get))
