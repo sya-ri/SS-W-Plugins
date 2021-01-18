@@ -12,9 +12,10 @@ object ConfigLoader : OnEnable {
         plugin.config(console, "config.yml") {
             ChatChannelOption.list = section("channel", false)?.associate {
                 val discordChannelId = get("channel.$it.discord", ConfigDataType.LONG, false)
+                val templateDiscord = get("channel.$it.template.discord", ChatTemplate.ConfigDataType, ChatTemplate.Discord, false)
                 val prefix = get("channel.$it.prefix", ConfigDataType.STRING, false)
                 val players = get("channel.$it.player", ConfigUUIDListDataType, false).orEmpty()
-                it.toRegex() to ChatChannelOption(discordChannelId, prefix, players)
+                it.toRegex() to ChatChannelOption(discordChannelId, templateDiscord, prefix, players)
             }.orEmpty()
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
             Discord.listenChannels = buildMap {

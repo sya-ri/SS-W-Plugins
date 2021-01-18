@@ -19,23 +19,20 @@ sealed class ChatChannel(val name: String) {
     abstract fun send(message: TextComponent)
 
     fun send(player: ProxiedPlayer, message: String) {
-        val templateMessage = getTemplate(player, message)
-        send(templateMessage)
-        options.forEach { it.discordChannel?.send(templateMessage.toPlainText()) }
-    }
-
-    private fun getTemplate(player: ProxiedPlayer, message: String): TextComponent {
-        val prefix = options.firstOrNull { it.prefix != null }?.prefix
-        val name = player.displayName
-        val serverName = player.server.info.name
-        return buildJson {
-            if (prefix != null) {
-                append("$prefix&r ")
+        send(
+            buildJson {
+                val prefix = options.firstOrNull { it.prefix != null }?.prefix
+                val name = player.displayName
+                val serverName = player.server.info.name
+                if (prefix != null) {
+                    append("$prefix&r ")
+                }
+                append("&b$name", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
+                append("&b: ")
+                append(MessageConverter.convert(message.toUncolor).formatMessage)
             }
-            append("&b$name", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
-            append("&b: ")
-            append(MessageConverter.convert(message.toUncolor).formatMessage)
-        }
+        )
+        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, message)) }
     }
 
     object Global : ChatChannel("global") {
