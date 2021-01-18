@@ -5,11 +5,16 @@ import com.github.syari.ss.wplugins.core.Main.Companion.console
 import com.github.syari.ss.wplugins.core.code.OnEnable
 import com.github.syari.ss.wplugins.core.config.CreateConfig.config
 import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
+import net.md_5.bungee.api.CommandSender
 
 object ConfigLoader : OnEnable {
-    @OptIn(ExperimentalStdlibApi::class)
     override fun onEnable() {
-        plugin.config(console, "config.yml") {
+        load(console)
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    fun load(sender: CommandSender) {
+        plugin.config(sender, "config.yml") {
             ChatChannelOption.list = section("channel", false)?.associate {
                 val discordChannelId = get("channel.$it.discord", ConfigDataType.LONG, false)
                 val templateDiscord = get("channel.$it.template.discord", ChatTemplate.ConfigDataType, ChatTemplate.Discord, false)

@@ -12,6 +12,11 @@ import net.md_5.bungee.api.connection.ProxiedPlayer
 sealed class ChatChannel(val name: String) {
     companion object {
         fun get(name: String) = if (name == Global.name) Global else Private.get(name)
+
+        fun getOrNull(name: String) = if (name == Global.name) Global else Private.getOrNull(name)
+
+        val nameList
+            get() = Global.name + Private.nameList
     }
 
     protected val options = ChatChannelOption.get(name)
@@ -46,6 +51,11 @@ sealed class ChatChannel(val name: String) {
             private val list = mutableMapOf<String, Private>()
 
             fun get(name: String) = list.getOrPut(name) { Private(name) }
+
+            fun getOrNull(name: String) = list[name]
+
+            val nameList
+                get() = list.keys
         }
 
         private val list = mutableSetOf<ChatSender>()

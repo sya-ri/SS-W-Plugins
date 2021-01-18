@@ -9,7 +9,7 @@ class Main : SSPlugin() {
     }
 
     override val listeners = listOf(EventListener, Discord)
-    override val onEnables = listOf(ConfigLoader)
+    override val onEnables = listOf(ConfigLoader, CommandCreator)
 
     override fun onEnable() {
         plugin = this
