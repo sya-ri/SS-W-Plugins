@@ -27,5 +27,6 @@ class Main : SSPlugin() {
         plugin = this
         console = proxy.console
         runOnEnable()
+        registerListeners()
     }
 }
