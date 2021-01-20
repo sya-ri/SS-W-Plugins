@@ -3,8 +3,8 @@ group = project.group
 
 dependencies {
     project.dependProjectName.forEach { implementation(project(":$it")) }
-    implementation("io.netty:netty-handler:4.1.49.Final")
-    implementation("io.netty", "netty-transport-native-epoll", "4.1.49.Final", classifier = "linux-x86_64")
+    implementation("io.netty:netty-handler:4.1.53.Final")
+    implementation("io.netty", "netty-transport-native-epoll", "4.1.53.Final", classifier = "linux-x86_64")
 }
 
 bungee {
