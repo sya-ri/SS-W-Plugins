@@ -1,4 +1,8 @@
 open class Project(val version: String, groupName: String = "") {
+    companion object {
+        val list = mutableListOf<Project>()
+    }
+
     constructor(buildVersion: Int) : this(buildVersion.toString())
 
     private val simpleName = javaClass.simpleName
@@ -10,6 +14,10 @@ open class Project(val version: String, groupName: String = "") {
     open val dependPlugin = listOf<String>()
     val dependProjectName by lazy { dependProject.map { it.name } }
     val allDependPlugin by lazy { (dependProjectName + dependPlugin).toSet() }
+
+    init {
+        list.add(this)
+    }
 
     object AccessBlocker : Project(4) {
         override val dependProject = listOf(Core)
