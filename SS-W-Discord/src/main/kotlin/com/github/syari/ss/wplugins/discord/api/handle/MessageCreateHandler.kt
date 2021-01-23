@@ -23,7 +23,7 @@ internal object MessageCreateHandler : GatewayHandler {
         val channelId = json["channel_id"].asLong
         val channel = guild.getTextChannel(channelId) ?: return
         val userJson = json["author"].asJsonObject
-        val memberJson = json["member"].asJsonObject
+        val memberJson = json.getOrNull("member")?.asJsonObject
         val member = Member.from(memberJson, userJson)
         val content = json["content"].asString
         val mentionMembers = getMentionMembers(json)
