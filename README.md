@@ -9,9 +9,9 @@ All Waterfall Plugins For SecondStory.
 | Name | Version |
 |:-----|--------:|
 | SS-W-AccessBlocker | 4 |
-| SS-W-Chat | 9 |
+| SS-W-Chat | 10 |
 | SS-W-Core | 12 |
-| SS-W-Discord | 4 |
+| SS-W-Discord | 5 |
 | SS-W-GlobalPlayers | 2 |
 | SS-W-Kotlin | 1.4.21 |
 | SS-W-PluginManager | 2 |

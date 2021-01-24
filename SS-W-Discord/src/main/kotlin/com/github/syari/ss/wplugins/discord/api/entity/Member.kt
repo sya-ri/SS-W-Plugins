@@ -20,12 +20,12 @@ data class Member(
         get() = "<@!?$id>".toRegex()
 
     internal companion object {
-        fun from(memberJson: JsonObject, userJson: JsonObject): Member {
+        fun from(memberJson: JsonObject?, userJson: JsonObject): Member {
             val user = User.from(userJson)
             val name = user.name
             val id = user.id
             val isBot = user.isBot
-            val nickName = memberJson.getOrNull("nick")?.asStringOrNull
+            val nickName = memberJson?.getOrNull("nick")?.asStringOrNull
             return Member(name, id, isBot, nickName)
         }
     }

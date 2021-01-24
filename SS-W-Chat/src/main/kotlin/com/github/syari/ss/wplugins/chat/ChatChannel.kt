@@ -33,6 +33,7 @@ sealed class ChatChannel(val name: String) {
     abstract fun send(message: TextComponent)
 
     fun send(player: ProxiedPlayer, message: String) {
+        val convertMessage = MessageConverter.convert(message.toUncolor)
         send(
             buildJson {
                 val prefix = options.firstOrNull { it.prefix != null }?.prefix
@@ -43,10 +44,23 @@ sealed class ChatChannel(val name: String) {
                 }
                 append("&b$name", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
                 append("&b: ")
-                append(MessageConverter.convert(message.toUncolor).formatMessage)
+                when (convertMessage) {
+                    is MessageConverter.ConvertResult.WithURL -> {
+                        convertMessage.messageWithClickableUrl.forEach {
+                            if (it.second) {
+                                append(it.first, JsonBuilder.Hover.Text("&aリンクを開く"), JsonBuilder.Click.OpenURL(it.first))
+                            } else {
+                                append(it.first)
+                            }
+                        }
+                    }
+                    else -> {
+                        append(convertMessage.formatMessage)
+                    }
+                }
             }
         )
-        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, message)) }
+        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, convertMessage.formatMessage)) }
     }
 
     object Global : ChatChannel("global") {
