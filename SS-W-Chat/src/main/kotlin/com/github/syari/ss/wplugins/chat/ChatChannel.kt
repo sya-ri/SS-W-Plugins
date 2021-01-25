@@ -60,7 +60,8 @@ sealed class ChatChannel(val name: String) {
                 }
             }
         )
-        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, convertMessage.formatMessage)) }
+        val discordMessage = convertMessage.formatMessage.toUncolor
+        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, discordMessage)) }
     }
 
     object Global : ChatChannel("global") {
