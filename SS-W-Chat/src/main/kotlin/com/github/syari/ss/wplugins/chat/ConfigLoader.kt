@@ -26,9 +26,10 @@ object ConfigLoader : OnEnable {
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)
             Discord.listenChannels = buildMap {
                 section("discord.channel", false)?.forEach { name ->
-                    get("discord.channel.$name", ConfigDataType.LONG)?.let {
-                        put(it, ChatChannel.get(name))
-                    }
+                    val prefix = get("discord.channel.$name.prefix", ConfigDataType.STRING, "&d", false)
+                    val listenChannel = get("discord.channel.$name.id", ConfigDataType.LONG) ?: return@forEach
+                    val channel = ChatChannel.get(name)
+                    put(listenChannel, DiscordListenChannel(prefix, channel))
                 }
             }
             ChatChannel.reloadOption()

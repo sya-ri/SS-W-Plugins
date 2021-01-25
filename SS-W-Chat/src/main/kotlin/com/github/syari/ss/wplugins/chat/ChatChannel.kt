@@ -2,6 +2,7 @@ package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
 import com.github.syari.ss.wplugins.chat.converter.MessageConverter
+import com.github.syari.ss.wplugins.core.Main.Companion.console
 import com.github.syari.ss.wplugins.core.code.StringEditor.toUncolor
 import com.github.syari.ss.wplugins.core.message.JsonBuilder
 import com.github.syari.ss.wplugins.core.message.JsonBuilder.Companion.buildJson
@@ -9,14 +10,14 @@ import com.github.syari.ss.wplugins.core.message.Message.send
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
-sealed class ChatChannel(val name: String) {
+sealed class ChatChannel(val channelName: String) {
     companion object {
-        fun get(name: String) = if (name == Global.name) Global else Private.get(name)
+        fun get(name: String) = if (name == Global.channelName) Global else Private.get(name)
 
-        fun getOrNull(name: String) = if (name == Global.name) Global else Private.getOrNull(name)
+        fun getOrNull(name: String) = if (name == Global.channelName) Global else Private.getOrNull(name)
 
         val nameList
-            get() = listOf(Global.name) + Private.nameList
+            get() = listOf(Global.channelName) + Private.nameList
 
         fun reloadOption() {
             Global.reloadOption()
@@ -27,23 +28,23 @@ sealed class ChatChannel(val name: String) {
     protected var options = listOf<ChatChannelOption>()
 
     open fun reloadOption() {
-        options = ChatChannelOption.get(name)
+        options = ChatChannelOption.get(channelName)
     }
 
     abstract fun send(message: TextComponent)
+
+    fun sendConsoleLog(name: String, message: String, isDiscord: Boolean) {
+        console.send("Chat($channelName:${if (isDiscord) "Discord" else "Server"}) $name: $message")
+    }
 
     fun send(player: ProxiedPlayer, message: String) {
         val convertMessage = MessageConverter.convert(message.toUncolor)
         send(
             buildJson {
-                val prefix = options.firstOrNull { it.prefix != null }?.prefix
+                val prefix = options.firstOrNull { it.prefix != null }?.prefix.orEmpty()
                 val name = player.displayName
                 val serverName = player.server.info.name
-                if (prefix != null) {
-                    append("$prefix&r ")
-                }
-                append("&b$name", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
-                append("&b: ")
+                append("$prefix$name: ", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
                 when (convertMessage) {
                     is MessageConverter.ConvertResult.WithURL -> {
                         convertMessage.messageWithClickableUrl.forEach {
@@ -60,8 +61,9 @@ sealed class ChatChannel(val name: String) {
                 }
             }
         )
-        val discordMessage = convertMessage.formatMessage.toUncolor
-        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, discordMessage)) }
+        val stringMessage = convertMessage.formatMessage.toUncolor
+        options.forEach { it.discordChannel?.send(it.templateDiscord.get(channelName, player.displayName, stringMessage)) }
+        sendConsoleLog(player.name, stringMessage, false)
     }
 
     object Global : ChatChannel("global") {
@@ -70,7 +72,7 @@ sealed class ChatChannel(val name: String) {
         }
 
         override fun send(message: TextComponent) {
-            plugin.proxy.broadcast(message)
+            plugin.proxy.players.forEach { it.send(message) }
         }
     }
 
