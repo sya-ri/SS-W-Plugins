@@ -2,6 +2,7 @@ package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
 import com.github.syari.ss.wplugins.chat.converter.MessageConverter
+import com.github.syari.ss.wplugins.core.Main.Companion.console
 import com.github.syari.ss.wplugins.core.code.StringEditor.toUncolor
 import com.github.syari.ss.wplugins.core.message.JsonBuilder
 import com.github.syari.ss.wplugins.core.message.JsonBuilder.Companion.buildJson
@@ -32,6 +33,10 @@ sealed class ChatChannel(val name: String) {
 
     abstract fun send(message: TextComponent)
 
+    fun sendConsoleLog(name: String, message: String, isDiscord: Boolean) {
+        console.send("Chat(${this.name}:${if (isDiscord) "Discord" else "Server"}) $name: $message")
+    }
+
     fun send(player: ProxiedPlayer, message: String) {
         val convertMessage = MessageConverter.convert(message.toUncolor)
         send(
@@ -60,8 +65,9 @@ sealed class ChatChannel(val name: String) {
                 }
             }
         )
-        val discordMessage = convertMessage.formatMessage.toUncolor
-        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, discordMessage)) }
+        val stringMessage = convertMessage.formatMessage.toUncolor
+        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, stringMessage)) }
+        sendConsoleLog(name, stringMessage, false)
     }
 
     object Global : ChatChannel("global") {
@@ -70,7 +76,7 @@ sealed class ChatChannel(val name: String) {
         }
 
         override fun send(message: TextComponent) {
-            plugin.proxy.broadcast(message)
+            plugin.proxy.players.forEach { it.send(message) }
         }
     }
 

@@ -20,5 +20,6 @@ class DiscordListenChannel(
                 append(message.toUncolor)
             }
         )
+        chatChannel.sendConsoleLog(name, message, true)
     }
 }
