@@ -41,14 +41,10 @@ sealed class ChatChannel(val channelName: String) {
         val convertMessage = MessageConverter.convert(message.toUncolor)
         send(
             buildJson {
-                val prefix = options.firstOrNull { it.prefix != null }?.prefix
+                val prefix = options.firstOrNull { it.prefix != null }?.prefix.orEmpty()
                 val name = player.displayName
                 val serverName = player.server.info.name
-                if (prefix != null) {
-                    append("$prefix&r ")
-                }
-                append("&b$name", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
-                append("&b: ")
+                append("$prefix$name: ", JsonBuilder.Hover.Text("&bServer: &f$serverName"))
                 when (convertMessage) {
                     is MessageConverter.ConvertResult.WithURL -> {
                         convertMessage.messageWithClickableUrl.forEach {
@@ -67,7 +63,7 @@ sealed class ChatChannel(val channelName: String) {
         )
         val stringMessage = convertMessage.formatMessage.toUncolor
         options.forEach { it.discordChannel?.send(it.templateDiscord.get(channelName, player.displayName, stringMessage)) }
-        sendConsoleLog(channelName, stringMessage, false)
+        sendConsoleLog(player.name, stringMessage, false)
     }
 
     object Global : ChatChannel("global") {

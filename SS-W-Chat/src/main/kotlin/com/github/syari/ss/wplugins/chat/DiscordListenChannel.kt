@@ -12,11 +12,10 @@ class DiscordListenChannel(
         chatChannel.send(
             buildJson {
                 append(
-                    prefix + name.toUncolor,
+                    "$prefix${name.toUncolor}: ",
                     JsonBuilder.Hover.Text("&6Discord に参加する"),
                     JsonBuilder.Click.OpenURL(Discord.joinUrl.toString())
                 )
-                append("&d: ")
                 append(message.toUncolor)
             }
         )
