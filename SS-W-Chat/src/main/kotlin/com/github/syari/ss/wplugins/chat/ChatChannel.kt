@@ -10,14 +10,14 @@ import com.github.syari.ss.wplugins.core.message.Message.send
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
-sealed class ChatChannel(val name: String) {
+sealed class ChatChannel(val channelName: String) {
     companion object {
-        fun get(name: String) = if (name == Global.name) Global else Private.get(name)
+        fun get(name: String) = if (name == Global.channelName) Global else Private.get(name)
 
-        fun getOrNull(name: String) = if (name == Global.name) Global else Private.getOrNull(name)
+        fun getOrNull(name: String) = if (name == Global.channelName) Global else Private.getOrNull(name)
 
         val nameList
-            get() = listOf(Global.name) + Private.nameList
+            get() = listOf(Global.channelName) + Private.nameList
 
         fun reloadOption() {
             Global.reloadOption()
@@ -28,13 +28,13 @@ sealed class ChatChannel(val name: String) {
     protected var options = listOf<ChatChannelOption>()
 
     open fun reloadOption() {
-        options = ChatChannelOption.get(name)
+        options = ChatChannelOption.get(channelName)
     }
 
     abstract fun send(message: TextComponent)
 
     fun sendConsoleLog(name: String, message: String, isDiscord: Boolean) {
-        console.send("Chat(${this.name}:${if (isDiscord) "Discord" else "Server"}) $name: $message")
+        console.send("Chat($channelName:${if (isDiscord) "Discord" else "Server"}) $name: $message")
     }
 
     fun send(player: ProxiedPlayer, message: String) {
@@ -66,8 +66,8 @@ sealed class ChatChannel(val name: String) {
             }
         )
         val stringMessage = convertMessage.formatMessage.toUncolor
-        options.forEach { it.discordChannel?.send(it.templateDiscord.get(name, player.displayName, stringMessage)) }
-        sendConsoleLog(name, stringMessage, false)
+        options.forEach { it.discordChannel?.send(it.templateDiscord.get(channelName, player.displayName, stringMessage)) }
+        sendConsoleLog(channelName, stringMessage, false)
     }
 
     object Global : ChatChannel("global") {
