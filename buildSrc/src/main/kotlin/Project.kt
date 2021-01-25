@@ -23,7 +23,7 @@ open class Project(val version: String, groupName: String = "") {
         override val dependProject = listOf(Core)
     }
 
-    object Chat : Project(11) {
+    object Chat : Project(12) {
         override val dependProject = listOf(Core, Discord)
     }
 
