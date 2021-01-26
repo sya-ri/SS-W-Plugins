@@ -8,7 +8,7 @@ import net.md_5.bungee.event.EventHandler
 import java.util.UUID
 
 object WhiteList : Listener {
-    var list = mutableListOf<UUID>()
+    var list = listOf<UUID>()
 
     var isEnable = true
 

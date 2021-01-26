@@ -19,15 +19,15 @@ open class Project(val version: String, groupName: String = "") {
         list.add(this)
     }
 
-    object AccessBlocker : Project(4) {
+    object AccessBlocker : Project(5) {
         override val dependProject = listOf(Core)
     }
 
-    object Chat : Project(12) {
+    object Chat : Project(13) {
         override val dependProject = listOf(Core, Discord)
     }
 
-    object Core : Project(12) {
+    object Core : Project(13) {
         override val dependProject = listOf(Kotlin)
     }
 

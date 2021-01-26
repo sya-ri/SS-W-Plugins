@@ -20,7 +20,7 @@ object ConfigLoader : OnEnable {
                 val discordChannelId = get("channel.$it.discord", ConfigDataType.LONG, false)
                 val templateDiscord = get("channel.$it.template.discord", ChatTemplate.ConfigDataType, ChatTemplate.Discord, false)
                 val prefix = get("channel.$it.prefix", ConfigDataType.STRING, false)
-                val players = get("channel.$it.player", ConfigUUIDListDataType, false).orEmpty()
+                val players = get("channel.$it.player", ConfigDataType.UUIDLIST, false).orEmpty()
                 regex to ChatChannelOption(discordChannelId, templateDiscord, prefix, players)
             }.orEmpty()
             Discord.joinUrl = get("discord.url", ConfigDataType.STRING, false)

@@ -48,5 +48,6 @@ interface ConfigDataType<T> {
         val STRINGLIST = ConfigStringListDataType
         val BOOLEAN = ConfigBooleanDataType
         val DATE = ConfigDateDataType
+        val UUIDLIST = ConfigUUIDListDataType
     }
 }
