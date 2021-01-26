@@ -19,7 +19,7 @@ open class Project(val version: String, groupName: String = "") {
         list.add(this)
     }
 
-    object AccessBlocker : Project(5) {
+    object AccessBlocker : Project(6) {
         override val dependProject = listOf(Core)
     }
 

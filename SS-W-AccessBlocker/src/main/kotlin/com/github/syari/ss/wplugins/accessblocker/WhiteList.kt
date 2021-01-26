@@ -22,6 +22,7 @@ object WhiteList : Listener {
                     append("&f&lサーバーはメンテナンス中です")
                 }
             )
+            e.isCancelled = true
         }
     }
 }
