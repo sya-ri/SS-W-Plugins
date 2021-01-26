@@ -1,5 +1,6 @@
 package com.github.syari.ss.wplugins.chat
 
+import com.github.syari.ss.wplugins.chat.discord.Discord
 import com.github.syari.ss.wplugins.core.code.SSPlugin
 import net.md_5.bungee.api.plugin.Plugin
 

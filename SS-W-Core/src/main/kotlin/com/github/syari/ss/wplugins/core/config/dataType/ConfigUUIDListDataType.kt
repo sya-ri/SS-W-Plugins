@@ -1,7 +1,6 @@
-package com.github.syari.ss.wplugins.chat
+package com.github.syari.ss.wplugins.core.config.dataType
 
 import com.github.syari.ss.wplugins.core.config.CustomConfig
-import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 import java.util.UUID
 
 object ConfigUUIDListDataType : ConfigDataType<List<UUID>> {

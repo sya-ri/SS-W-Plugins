@@ -1,5 +1,6 @@
-package com.github.syari.ss.wplugins.chat
+package com.github.syari.ss.wplugins.chat.discord
 
+import com.github.syari.ss.wplugins.chat.channel.ChatChannel
 import com.github.syari.ss.wplugins.core.code.StringEditor.toUncolor
 import com.github.syari.ss.wplugins.core.message.JsonBuilder
 import com.github.syari.ss.wplugins.core.message.JsonBuilder.Companion.buildJson

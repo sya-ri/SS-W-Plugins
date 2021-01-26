@@ -6,7 +6,6 @@ import com.github.syari.ss.wplugins.core.code.OnEnable
 import com.github.syari.ss.wplugins.core.config.CreateConfig.config
 import com.github.syari.ss.wplugins.core.config.dataType.ConfigDataType
 import net.md_5.bungee.api.CommandSender
-import java.util.UUID
 
 object ConfigLoader : OnEnable {
     override fun onEnable() {
@@ -18,8 +17,7 @@ object ConfigLoader : OnEnable {
             ModBlocker.availableList = get("mod", ConfigDataType.STRINGLIST, listOf(), false)
             BrandBlocker.availableList = get("brand", ConfigDataType.STRINGLIST, listOf(), false)
             WhiteList.isEnable = get("whitelist.enable", ConfigDataType.BOOLEAN, default = true, false)
-            val uuidList = get("whitelist.uuid", ConfigDataType.STRINGLIST, listOf(), false)
-            WhiteList.list = uuidList.map { UUID.fromString(it) }.toMutableList()
+            WhiteList.list = get("whitelist.uuid", ConfigDataType.UUIDLIST, listOf(), false)
         }
     }
 }
