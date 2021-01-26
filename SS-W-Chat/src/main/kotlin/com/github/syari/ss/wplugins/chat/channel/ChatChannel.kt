@@ -8,6 +8,7 @@ import com.github.syari.ss.wplugins.core.code.StringEditor.toUncolor
 import com.github.syari.ss.wplugins.core.message.JsonBuilder
 import com.github.syari.ss.wplugins.core.message.JsonBuilder.Companion.buildJson
 import com.github.syari.ss.wplugins.core.message.Message.send
+import com.github.syari.ss.wplugins.core.player.UUIDPlayer
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
@@ -18,7 +19,7 @@ sealed class ChatChannel(val channelName: String) {
         fun getOrNull(name: String) = if (name == Global.channelName) Global else Private.getOrNull(name)
 
         val nameList
-            get() = listOf(Global.channelName) + Private.nameList
+            get() = listOf(Global.channelName) + Private.nameList + Direct.nameList
 
         fun reloadOption() {
             Global.reloadOption()
@@ -115,6 +116,25 @@ sealed class ChatChannel(val channelName: String) {
 
         override fun send(message: TextComponent) {
             list.forEach { it.player?.send(message) }
+        }
+    }
+
+    class Direct(name: String, private val players: Set<UUIDPlayer>) : ChatChannel(name) {
+        companion object {
+            private val list = mutableMapOf<Set<UUIDPlayer>, Direct>()
+
+            fun get(from: ProxiedPlayer, to: ProxiedPlayer): Direct {
+                val players = setOf(UUIDPlayer(from), UUIDPlayer(to))
+                val channelName = "direct/${from.name}-${to.name}"
+                return list.getOrPut(players) { Direct(channelName, players) }
+            }
+
+            val nameList
+                get() = list.values.map(Direct::channelName)
+        }
+
+        override fun send(message: TextComponent) {
+            players.forEach { it.player?.send(message) }
         }
     }
 }
