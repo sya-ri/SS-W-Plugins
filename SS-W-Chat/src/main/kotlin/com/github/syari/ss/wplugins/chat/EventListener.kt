@@ -2,6 +2,7 @@ package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.template.message.PluginMessageTemplateChatChannel
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
+import com.github.syari.ss.wplugins.chat.channel.ChatChannel
 import com.github.syari.ss.wplugins.core.pluginMessage.SSPluginMessageEvent
 import com.github.syari.ss.wplugins.core.scheduler.CreateScheduler.runSchedule
 import net.md_5.bungee.api.connection.ProxiedPlayer

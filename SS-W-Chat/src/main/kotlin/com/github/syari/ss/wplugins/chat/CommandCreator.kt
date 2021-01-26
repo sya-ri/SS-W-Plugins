@@ -1,6 +1,7 @@
 package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
+import com.github.syari.ss.wplugins.chat.channel.ChatChannel
 import com.github.syari.ss.wplugins.core.code.OnEnable
 import com.github.syari.ss.wplugins.core.command.CommandCreator.Companion.command
 import com.github.syari.ss.wplugins.core.command.CommandTabElement.Companion.element

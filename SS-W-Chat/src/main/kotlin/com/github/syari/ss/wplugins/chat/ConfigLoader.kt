@@ -1,6 +1,10 @@
 package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
+import com.github.syari.ss.wplugins.chat.channel.ChatChannel
+import com.github.syari.ss.wplugins.chat.channel.ChatChannelOption
+import com.github.syari.ss.wplugins.chat.discord.Discord
+import com.github.syari.ss.wplugins.chat.discord.DiscordListenChannel
 import com.github.syari.ss.wplugins.core.Main.Companion.console
 import com.github.syari.ss.wplugins.core.code.OnEnable
 import com.github.syari.ss.wplugins.core.config.CreateConfig.config

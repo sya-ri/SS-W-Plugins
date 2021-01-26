@@ -1,6 +1,7 @@
 package com.github.syari.ss.wplugins.chat
 
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
+import com.github.syari.ss.wplugins.chat.channel.ChatChannel
 import net.md_5.bungee.api.connection.ProxiedPlayer
 import java.util.UUID
 

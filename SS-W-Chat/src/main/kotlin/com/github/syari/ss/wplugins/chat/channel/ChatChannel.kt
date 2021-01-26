@@ -1,5 +1,6 @@
-package com.github.syari.ss.wplugins.chat
+package com.github.syari.ss.wplugins.chat.channel
 
+import com.github.syari.ss.wplugins.chat.ChatSender
 import com.github.syari.ss.wplugins.chat.Main.Companion.plugin
 import com.github.syari.ss.wplugins.chat.converter.MessageConverter
 import com.github.syari.ss.wplugins.core.Main.Companion.console

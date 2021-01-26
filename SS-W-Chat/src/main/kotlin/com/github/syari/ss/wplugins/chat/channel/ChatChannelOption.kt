@@ -1,5 +1,6 @@
-package com.github.syari.ss.wplugins.chat
+package com.github.syari.ss.wplugins.chat.channel
 
+import com.github.syari.ss.wplugins.chat.ChatTemplate
 import com.github.syari.ss.wplugins.discord.Discord
 import java.util.UUID
 

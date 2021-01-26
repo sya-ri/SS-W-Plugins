@@ -1,4 +1,4 @@
-package com.github.syari.ss.wplugins.chat
+package com.github.syari.ss.wplugins.chat.discord
 
 import com.github.syari.ss.wplugins.discord.DiscordMessageReceiveEvent
 import net.md_5.bungee.api.plugin.Listener
