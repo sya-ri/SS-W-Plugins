@@ -16,7 +16,7 @@ object Discord : Listener {
         listenChannels[e.channel.id]?.let {
             val name = e.member.displayName
             val message = e.contentDisplay
-            it.send(name, message.toUncolor)
+            it.send(name, message.toUncolor.replace("\n", " "))
         }
     }
 }
