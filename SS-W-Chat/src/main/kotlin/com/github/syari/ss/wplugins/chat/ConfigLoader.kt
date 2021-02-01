@@ -33,8 +33,9 @@ object ConfigLoader : OnEnable {
                 section("discord.channel", false)?.forEach { name ->
                     val prefix = get("discord.channel.$name.prefix", ConfigDataType.STRING, "&d", false)
                     val listenChannel = get("discord.channel.$name.id", ConfigDataType.LONG) ?: return@forEach
+                    val maxLength = get("discord.channel.$name.max-length", ConfigDataType.INT, false)
                     val channel = ChatChannel.get(name)
-                    put(listenChannel, DiscordListenChannel(prefix, channel))
+                    put(listenChannel, DiscordListenChannel(prefix, channel, maxLength))
                 }
             }
             ChatChannel.reloadOption()

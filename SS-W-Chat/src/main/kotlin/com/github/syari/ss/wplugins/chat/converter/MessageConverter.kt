@@ -43,10 +43,10 @@ object MessageConverter {
     }
 
     fun convert(message: String): ConvertResult {
-        return if (matchesHalfWidthChar(message)) {
-            if (message.firstOrNull() == '.') {
-                ConvertResult.OnlyMessage(message.substring(1))
-            } else if (UrlRegex.containsMatchIn(message)) {
+        return if (message.firstOrNull() == '.') {
+            ConvertResult.OnlyMessage(message.substring(1))
+        } else if (matchesHalfWidthChar(message)) {
+            if (UrlRegex.containsMatchIn(message)) {
                 ConvertResult.WithURL(message)
             } else {
                 val converted = message.toKana().toIME()
