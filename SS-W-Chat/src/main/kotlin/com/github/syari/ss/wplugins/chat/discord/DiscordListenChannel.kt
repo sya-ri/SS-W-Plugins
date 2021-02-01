@@ -7,7 +7,8 @@ import com.github.syari.ss.wplugins.core.message.JsonBuilder.Companion.buildJson
 
 class DiscordListenChannel(
     private val prefix: String,
-    private val chatChannel: ChatChannel
+    private val chatChannel: ChatChannel,
+    private val messageMaxLength: Int?
 ) {
     fun send(name: String, message: String) {
         chatChannel.send(
@@ -17,7 +18,11 @@ class DiscordListenChannel(
                     JsonBuilder.Hover.Text("&6Discord に参加する"),
                     JsonBuilder.Click.OpenURL(Discord.joinUrl.toString())
                 )
-                append(message.toUncolor)
+                if (messageMaxLength != null && messageMaxLength < message.length) {
+                    append(message.substring(0, messageMaxLength) + "...")
+                } else {
+                    append(message)
+                }
             }
         )
         chatChannel.sendConsoleLog(name, message, true)
