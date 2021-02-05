@@ -3,6 +3,9 @@ All Waterfall Plugins For SecondStory.
 
 ![total lines](https://img.shields.io/tokei/lines/github/SecondStoryServer/SS-W-Plugins) ![size](https://img.shields.io/github/repo-size/SecondStoryServer/SS-W-Plugins?label=size) ![license](https://img.shields.io/github/license/SecondStoryServer/SS-W-Plugins)
 
+このリポジトリは、問題を早期に解決する目的・プラグインの参考にしてもらう目的で公開されています。
+非公開の情報も含まれているため、このリポジトリから得られた情報を公言しないようお願いします。
+
 ## Plugins
 
 <!-- Generate Versions -->
