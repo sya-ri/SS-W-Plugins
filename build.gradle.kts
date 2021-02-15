@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import net.minecrell.pluginyml.bungee.BungeePluginDescription
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
@@ -21,8 +22,19 @@ subprojects {
     apply(plugin = "net.minecrell.plugin-yml.bungee")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    val shadowApi by configurations.creating
-    configurations["api"].extendsFrom(shadowApi)
+    val shadowImplementation by configurations.creating
+    configurations["implementation"].extendsFrom(shadowImplementation)
+
+    val project = when (project.name) {
+        "SS-W-AccessBlocker" -> Project.AccessBlocker
+        "SS-W-Chat" -> Project.Chat
+        "SS-W-Core" -> Project.Core
+        "SS-W-Discord" -> Project.Discord
+        "SS-W-GlobalPlayers" -> Project.GlobalPlayers
+        "SS-W-PluginManager" -> Project.PluginManager
+        "SS-W-Votifier" -> Project.Votifier
+        else -> error("Not Found Project ${project.name}")
+    }
 
     repositories {
         maven {
@@ -31,8 +43,22 @@ subprojects {
     }
 
     dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        when (project) {
+            Project.Core -> {
+                shadowImplementation(kotlin("stdlib-jdk8"))
+            }
+            Project.Discord -> {
+                implementation("com.google.code.gson:gson:2.8.6")
+                testImplementation("org.slf4j:slf4j-simple:1.7.30")
+            }
+            Project.Votifier -> {
+                implementation("io.netty:netty-handler:4.1.53.Final")
+                implementation("io.netty", "netty-transport-native-epoll", "4.1.53.Final", classifier = "linux-x86_64")
+            }
+        }
+        implementation(kotlin("stdlib-jdk8"))
         implementation("io.github.waterfallmc:waterfall-api:1.16-R0.4-SNAPSHOT")
+        project.dependProjectName.forEach { implementation(project(":$it")) }
     }
 
     tasks.withType<KotlinCompile> {
@@ -43,13 +69,21 @@ subprojects {
     }
 
     tasks.withType<ShadowJar> {
-        configurations = listOf(shadowApi)
+        configurations = listOf(shadowImplementation)
         classifier = null
         destinationDirectory.set(file("../jars"))
     }
 
     configure<KtlintExtension> {
         version.set("0.40.0")
+    }
+
+    configure<BungeePluginDescription> {
+        name = project.name
+        version = project.version
+        main = project.main
+        author = project.author
+        depends = project.allDependPlugin
     }
 }
 
