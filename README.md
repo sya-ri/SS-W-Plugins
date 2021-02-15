@@ -19,7 +19,6 @@ All Waterfall Plugins For SecondStory.
 | SS-W-Core | 13 |
 | SS-W-Discord | 5 |
 | SS-W-GlobalPlayers | 2 |
-| SS-W-Kotlin | 1.4.21 |
 | SS-W-PluginManager | 2 |
 | SS-W-Votifier | 3 |
 <!-- Generate Versions -->

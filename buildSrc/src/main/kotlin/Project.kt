@@ -27,9 +27,7 @@ open class Project(val version: String, groupName: String = "") {
         override val dependProject = listOf(Core, Discord)
     }
 
-    object Core : Project(13) {
-        override val dependProject = listOf(Kotlin)
-    }
+    object Core : Project(13)
 
     object Discord : Project(5) {
         override val dependProject = listOf(Core)
@@ -38,8 +36,6 @@ open class Project(val version: String, groupName: String = "") {
     object GlobalPlayers : Project(2) {
         override val dependProject = listOf(Core)
     }
-
-    object Kotlin : Project("1.4.21")
 
     object PluginManager : Project(2) {
         override val dependProject = listOf(Core)
