@@ -6,7 +6,6 @@ include(
     "SS-W-Core",
     "SS-W-Discord",
     "SS-W-GlobalPlayers",
-    "SS-W-Kotlin",
     "SS-W-PluginManager",
     "SS-W-Votifier"
 )
