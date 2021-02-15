@@ -2,7 +2,7 @@ val project = Project.Kotlin
 group = project.group
 
 dependencies {
-    compileOnly(kotlin("stdlib-jdk8"))
+    shadowApi(kotlin("stdlib-jdk8"))
 }
 
 bungee {
