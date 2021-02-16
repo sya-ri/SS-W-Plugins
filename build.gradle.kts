@@ -11,8 +11,14 @@ plugins {
 }
 
 allprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
     repositories {
         mavenCentral()
+    }
+
+    configure<KtlintExtension> {
+        version.set("0.40.0")
     }
 }
 
@@ -20,7 +26,6 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "com.github.johnrengelman.shadow")
     apply(plugin = "net.minecrell.plugin-yml.bungee")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     val shadowImplementation by configurations.creating
     configurations["implementation"].extendsFrom(shadowImplementation)
@@ -72,10 +77,6 @@ subprojects {
         configurations = listOf(shadowImplementation)
         classifier = null
         destinationDirectory.set(file("../jars"))
-    }
-
-    configure<KtlintExtension> {
-        version.set("0.40.0")
     }
 
     configure<BungeePluginDescription> {
