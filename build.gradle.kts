@@ -11,8 +11,14 @@ plugins {
 }
 
 allprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
     repositories {
         mavenCentral()
+    }
+
+    configure<KtlintExtension> {
+        version.set("0.40.0")
     }
 }
 
@@ -20,26 +26,14 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "com.github.johnrengelman.shadow")
     apply(plugin = "net.minecrell.plugin-yml.bungee")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     val shadowImplementation by configurations.creating
     configurations["implementation"].extendsFrom(shadowImplementation)
 
-    val project = when (project.name) {
-        "SS-W-AccessBlocker" -> Project.AccessBlocker
-        "SS-W-Chat" -> Project.Chat
-        "SS-W-Core" -> Project.Core
-        "SS-W-Discord" -> Project.Discord
-        "SS-W-GlobalPlayers" -> Project.GlobalPlayers
-        "SS-W-PluginManager" -> Project.PluginManager
-        "SS-W-Votifier" -> Project.Votifier
-        else -> error("Not Found Project ${project.name}")
-    }
+    val project = Project.get(project.name) ?: error("Not Found Project ${project.name}")
 
     repositories {
-        maven {
-            url = uri("https://papermc.io/repo/repository/maven-public/")
-        }
+        maven(url = "https://papermc.io/repo/repository/maven-public/")
     }
 
     dependencies {
@@ -72,10 +66,6 @@ subprojects {
         configurations = listOf(shadowImplementation)
         classifier = null
         destinationDirectory.set(file("../jars"))
-    }
-
-    configure<KtlintExtension> {
-        version.set("0.40.0")
     }
 
     configure<BungeePluginDescription> {
