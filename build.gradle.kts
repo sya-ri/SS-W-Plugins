@@ -33,9 +33,7 @@ subprojects {
     val project = Project.get(project.name) ?: error("Not Found Project ${project.name}")
 
     repositories {
-        maven {
-            url = uri("https://papermc.io/repo/repository/maven-public/")
-        }
+        maven(url = "https://papermc.io/repo/repository/maven-public/")
     }
 
     dependencies {
