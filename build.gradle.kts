@@ -30,16 +30,7 @@ subprojects {
     val shadowImplementation by configurations.creating
     configurations["implementation"].extendsFrom(shadowImplementation)
 
-    val project = when (project.name) {
-        "SS-W-AccessBlocker" -> Project.AccessBlocker
-        "SS-W-Chat" -> Project.Chat
-        "SS-W-Core" -> Project.Core
-        "SS-W-Discord" -> Project.Discord
-        "SS-W-GlobalPlayers" -> Project.GlobalPlayers
-        "SS-W-PluginManager" -> Project.PluginManager
-        "SS-W-Votifier" -> Project.Votifier
-        else -> error("Not Found Project ${project.name}")
-    }
+    val project = Project.get(project.name) ?: error("Not Found Project ${project.name}")
 
     repositories {
         maven {

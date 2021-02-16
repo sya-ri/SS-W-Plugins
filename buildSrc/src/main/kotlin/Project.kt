@@ -1,6 +1,16 @@
 open class Project(val version: String, groupName: String = "") {
     companion object {
-        val list = mutableListOf<Project>()
+        val list = listOf(
+            AccessBlocker,
+            Chat,
+            Core,
+            Discord,
+            GlobalPlayers,
+            PluginManager,
+            Votifier
+        )
+
+        fun get(name: String) = list.firstOrNull { it.name == name }
     }
 
     constructor(buildVersion: Int) : this(buildVersion.toString())
@@ -14,10 +24,6 @@ open class Project(val version: String, groupName: String = "") {
     open val dependPlugin = listOf<String>()
     val dependProjectName by lazy { dependProject.map { it.name } }
     val allDependPlugin by lazy { (dependProjectName + dependPlugin).toSet() }
-
-    init {
-        list.add(this)
-    }
 
     object AccessBlocker : Project(6) {
         override val dependProject = listOf(Core)
