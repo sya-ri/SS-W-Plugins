@@ -1,3 +1,5 @@
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+
 open class Project(val version: String, groupName: String = "") {
     companion object {
         val list = listOf(
