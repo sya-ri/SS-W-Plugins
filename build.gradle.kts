@@ -42,7 +42,7 @@ subprojects {
                 shadowImplementation(kotlin("stdlib-jdk8"))
             }
             Project.Discord -> {
-                implementation("com.google.code.gson:gson:2.8.6")
+                implementation("com.google.code.gson:gson:2.8.7")
                 testImplementation("org.slf4j:slf4j-simple:1.7.30")
             }
             Project.Votifier -> {
