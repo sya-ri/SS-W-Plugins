@@ -7,7 +7,7 @@ plugins {
     kotlin("jvm") version "1.4.30"
     id("com.github.johnrengelman.shadow") version "6.1.0" apply false
     id("net.minecrell.plugin-yml.bungee") version "0.3.0" apply false
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
 }
 
 allprojects {
