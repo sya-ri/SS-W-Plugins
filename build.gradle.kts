@@ -43,7 +43,7 @@ subprojects {
             }
             Project.Discord -> {
                 implementation("com.google.code.gson:gson:2.8.6")
-                testImplementation("org.slf4j:slf4j-simple:1.7.30")
+                testImplementation("org.slf4j:slf4j-simple:1.7.31")
             }
             Project.Votifier -> {
                 implementation("io.netty:netty-handler:4.1.53.Final")
